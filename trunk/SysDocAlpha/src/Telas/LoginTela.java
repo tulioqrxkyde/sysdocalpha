@@ -33,18 +33,19 @@ public class LoginTela extends javax.swing.JFrame {
         fab.rs = fab.stmt.executeQuery(sql);
         fab.rs.first();
         
-        if (txtUsuario.getText().equals(fab.rs.getString("usuario")) 
-                && ptxtSenha.getText().equals(fab.rs.getString("senha"))){
-            JOptionPane.showMessageDialog(null,"Acesso Permitido!");
-            new TelaPrincipal().show();
-            dispose();
-        }else {
-            JOptionPane.showMessageDialog(null,"Acesso Negado!");
-        }
-        }catch (SQLException e){
+       if (txtUsuario.getText().equals("") || ptxtSenha.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Os Campos não podem ser vazios");
+            } else if (txtUsuario.getText().equals(fab.rs.getString("usuario"))
+                    && ptxtSenha.getText().equals(fab.rs.getString("senha"))) {
+                JOptionPane.showMessageDialog(null, "Acesso Permitido!");
+                new TelaPrincipal().show();
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Acesso Negado!");
+            }
+        } catch (SQLException e) {
         }
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -158,9 +159,7 @@ public class LoginTela extends javax.swing.JFrame {
     }//GEN-LAST:event_ptxtSenhaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (txtUsuario.getText().equals("") || ptxtSenha.getText().equals("")){
-        JOptionPane.showMessageDialog(null, "Os Campos não podem ser vazios");
-        }
+
         acessarSistema();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
