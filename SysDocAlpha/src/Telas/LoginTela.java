@@ -29,13 +29,15 @@ public class LoginTela extends javax.swing.JFrame {
         fab.abrirConexao();
         fab.stmt = fab.con.createStatement();
         
-        String sql = "SELECT * FROM login";
-        
+        String sql = "SELECT * FROM LOGIN";
+        fab.rs = fab.stmt.executeQuery(sql);
         fab.rs.first();
         
         if (txtUsuario.getText().equals(fab.rs.getString("usuario")) 
                 && ptxtSenha.getText().equals(fab.rs.getString("senha"))){
             JOptionPane.showMessageDialog(null,"Acesso Permitido!");
+            new TelaPrincipal().show();
+            dispose();
         }else {
             JOptionPane.showMessageDialog(null,"Acesso Negado!");
         }
@@ -159,10 +161,7 @@ public class LoginTela extends javax.swing.JFrame {
         if (txtUsuario.getText().equals("") || ptxtSenha.getText().equals("")){
         JOptionPane.showMessageDialog(null, "Os Campos não podem ser vazios");
         }
-        acessarSistema();{
-        new TelaPrincipal().show();
-        dispose();
-    }          
+        acessarSistema();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 

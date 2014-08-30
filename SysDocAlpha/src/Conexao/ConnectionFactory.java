@@ -10,10 +10,10 @@ public class ConnectionFactory {
     public Statement stmt;
     public ResultSet rs;
     
-    String url = "jdbc:mysql://localhost:3306/sysdoc";
-    String driver = "com.mysql.jdbc.Driver";
-    String user = "root";
-    String password = "kiwi";
+     String url = "jdbc:mysql://localhost:3306/sysdoc";
+     String driver = "com.mysql.jdbc.Driver";
+     String user = "root";
+     String password = "kiwi";
     
     public void abrirConexao(){
         try {
