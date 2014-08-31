@@ -14,13 +14,14 @@ import javax.swing.JOptionPane;
  *
  * @author Farley
  */
-public class LoginTela extends javax.swing.JFrame {
+public class FrmLogin extends javax.swing.JFrame {
 
     /**
      * Creates new form LoginTela
      */
-    public LoginTela() {
+    public FrmLogin() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
     
     public void acessarSistema(){
@@ -38,7 +39,7 @@ public class LoginTela extends javax.swing.JFrame {
             } else if (txtUsuario.getText().equals(fab.rs.getString("usuario"))
                     && ptxtSenha.getText().equals(fab.rs.getString("senha"))) {
                 JOptionPane.showMessageDialog(null, "Acesso Permitido!");
-                new TelaPrincipal().show();
+                new FrmPrincipal().show();
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Acesso Negado!");
@@ -190,20 +191,20 @@ public class LoginTela extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginTela().setVisible(true);
+                new FrmLogin().setVisible(true);
             }
         });
     }
