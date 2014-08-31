@@ -6,8 +6,13 @@
 
 package Telas;
 
-import Conexao.ConnectionFactory;
+import Conexao.ConectaBanco;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,37 +21,38 @@ import javax.swing.JOptionPane;
  */
 public class FrmLogin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form LoginTela
-     */
-    public FrmLogin() {
+    Connection con = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+
+    public FrmLogin() throws ClassNotFoundException {
         initComponents();
         this.setLocationRelativeTo(null);
+        con = ConectaBanco.ConectaBanco();
     }
     
-    public void acessarSistema(){
-        try {
-        ConnectionFactory fab = new ConnectionFactory();
-        fab.abrirConexao();
-        fab.stmt = fab.con.createStatement();
+    public void Logar(){
+        String sql = "select * from login where usuario = ? and senha = ?";
         
-        String sql = "SELECT * FROM LOGIN";
-        fab.rs = fab.stmt.executeQuery(sql);
-        fab.rs.first();
-        
-       if (txtUsuario.getText().equals("") || ptxtSenha.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Os Campos não podem ser vazios");
-            } else if (txtUsuario.getText().equals(fab.rs.getString("usuario"))
-                    && ptxtSenha.getText().equals(fab.rs.getString("senha"))) {
-                JOptionPane.showMessageDialog(null, "Acesso Permitido!");
-                new FrmPrincipal().show();
-                dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "Acesso Negado!");
-            }
-        } catch (SQLException e) {
+        try{
+            pst = con.prepareStatement(sql);
+            pst.setString(1,txtUsuario.getText());
+            pst.setString(2,ptxtSenha.getText());
+            
+            rs=pst.executeQuery();
+       if(rs.next()){
+           FrmPrincipal frm = new FrmPrincipal();
+           frm.setVisible(true);
+           dispose();
+       }else {
+           JOptionPane.showMessageDialog(null,"Usuario/Senha Invalidos");
+       }
+       }
+        catch (SQLException error){
+            
         }
     }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -161,7 +167,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        acessarSistema();
+        Logar();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -204,7 +210,11 @@ public class FrmLogin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmLogin().setVisible(true);
+                try {
+                    new FrmLogin().setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(FrmLogin.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
