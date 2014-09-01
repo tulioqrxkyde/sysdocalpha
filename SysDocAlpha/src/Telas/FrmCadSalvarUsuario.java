@@ -1,7 +1,8 @@
 package Telas;
 
 import Conexao.ConectaBanco;
-import java.sql.*;
+import Entidades.Login;
+import Entidades.DAO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -12,29 +13,24 @@ import javax.swing.JOptionPane;
  */
 public class FrmCadSalvarUsuario extends javax.swing.JFrame {
 
-    Connection con;
-    PreparedStatement pst;
-    ResultSet rs;
+    final ConectaBanco cBanco = new ConectaBanco();
 
     public FrmCadSalvarUsuario() throws ClassNotFoundException {
         initComponents();
         setLocationRelativeTo(null);
-        con = ConectaBanco.ConectaBanco();
     }
 
     public void CadastrarUsuarios() {
 
-        String sql = "Insert into login(usuario,senha) values (?,?)";
-        try {
-            pst = con.prepareStatement(sql);
-            pst.setString(1, txtCadUsuario.getText());
-            pst.setString(2, txtCadSenha.getText());
-            
-            pst.execute();
-            JOptionPane.showMessageDialog(null,"Usuario Cadastrado com Sucesso!","Cadastrado com Sucesso",JOptionPane.INFORMATION_MESSAGE);
+        Login login = new Login();
+        login.setUsuario(txtCadUsuario.getText());
+        login.setSenha(new String(txtCadSenha.getText()));
+        if (DAO.pesquisarUsuarios(login).size() <= 0) {
+            DAO.salvar(login);
+            JOptionPane.showMessageDialog(null, "Usuario Cadastrado com Sucesso!", "Cadastrado com Sucesso", JOptionPane.INFORMATION_MESSAGE);
             dispose();
-        } catch (SQLException error) {
-
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuario já existente!","Erro!", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -74,7 +70,7 @@ public class FrmCadSalvarUsuario extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Usuario:");
+        jLabel1.setText("Novo Usuario:");
 
         jLabel2.setText("Senha:");
 
@@ -84,7 +80,7 @@ public class FrmCadSalvarUsuario extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
@@ -147,7 +143,9 @@ public class FrmCadSalvarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       CadastrarUsuarios();
+
+        CadastrarUsuarios();
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
