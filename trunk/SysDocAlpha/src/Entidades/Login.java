@@ -1,5 +1,4 @@
 
-
 package Entidades;
 
 import java.io.Serializable;
