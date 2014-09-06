@@ -18,19 +18,19 @@ public class DAO {
 
     ;
 
-    public static void salvar(Object l) {
-        sessao.save(l);
+    public static void salvar(Object u) {
+        sessao.save(u);
         transacao.commit();
     }
     
-    public static void deletar(Object l) {
-        sessao.delete(l);
+    public static void deletar(Object u) {
+        sessao.delete(u);
         transacao.commit();
     }
 
-    public static List<Login> pesquisarUsuarios(Login l) {
-        return (List<Login>) sessao.createCriteria(Login.class).add(Restrictions.ilike("usuario", l.getUsuario()))
-                .add(Restrictions.ilike("senha", l.getSenha())).list();
+    public static List<Login> pesquisarUsuarios(Login u) {
+        return (List<Login>) sessao.createCriteria(Login.class).add(Restrictions.ilike("usuario", u.getUsuario()))
+                .add(Restrictions.ilike("senha", u.getSenha())).list();
     }
 
     public static List<Login> listarUsuarios() {
