@@ -27,6 +27,11 @@ public class DAO {
         sessao.delete(u);
         transacao.commit();
     }
+    
+     public static void editar(Object u) {
+        sessao.update(u);
+        transacao.commit();
+    }
 
     public static List<Login> pesquisarUsuarios(Login u) {
         return (List<Login>) sessao.createCriteria(Login.class).add(Restrictions.ilike("usuario", u.getUsuario()))
