@@ -100,7 +100,7 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         });
 
-        uJPanelImagem1.setImagem(new java.io.File("C:\\Users\\Farley\\Desktop\\sysdoc.png"));
+        uJPanelImagem1.setImagem(new java.io.File("C:\\Users\\Farley\\Documents\\NetBeansProjects\\SysDocAlpha\\src\\Icones\\sysdoc.png"));
 
         javax.swing.GroupLayout uJPanelImagem1Layout = new javax.swing.GroupLayout(uJPanelImagem1);
         uJPanelImagem1.setLayout(uJPanelImagem1Layout);
