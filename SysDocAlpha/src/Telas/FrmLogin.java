@@ -52,6 +52,9 @@ public class FrmLogin extends javax.swing.JFrame {
         uJPanelImagem1 = new componentes.UJPanelImagem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -156,6 +159,8 @@ public class FrmLogin extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 280));
+
+        getAccessibleContext().setAccessibleDescription("Login do Sistema");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
