@@ -36,6 +36,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jlData = new javax.swing.JLabel();
         jlHora = new javax.swing.JLabel();
+        jlUser = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -54,7 +55,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new java.awt.GridLayout());
+        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
         jButton5.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icones/funcionario.png"))); // NOI18N
@@ -65,11 +66,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icones/scanner.png"))); // NOI18N
         jButton6.setText("Scanner");
         jPanel2.add(jButton6);
-
-        jButton7.setText("jButton7");
         jPanel2.add(jButton7);
-
-        jButton8.setText("jButton8");
         jPanel2.add(jButton8);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -91,7 +88,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
-        jLabel1.setText("jLabel1");
+        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jLabel1.setText("Bem vindo");
+
+        jlUser.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jlUser.setText("Admin");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -100,6 +101,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jlUser, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jlData, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
@@ -117,7 +120,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
                             .addComponent(jlData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(0, 5, Short.MAX_VALUE)
-                                .addComponent(jLabel1)))))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jlUser, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap())
         );
 
@@ -201,14 +206,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
        
         
-       Date datasistema = new Date();
-       SimpleDateFormat formato new SimpleDateFormat("dd/MM/yyyy");
-       jlData.setText(formato.format(datasistema));
+      // Date datasistema = new Date();
+       //SimpleDateFormat formato new SimpleDateFormat("dd/MM/yyyy");
+       //jlData.setText(formato.format(datasistema));
        
-       Timer timer = new Timer(1000, new hora());
-       timer.start();
+      // Timer timer = new Timer(1000, new hora());
+      // timer.start();
         
-               
+      //jlUser.setText("admin");
     }//GEN-LAST:event_formWindowOpened
 
     /**
@@ -263,6 +268,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel jlData;
     private javax.swing.JLabel jlHora;
+    private javax.swing.JLabel jlUser;
     private componentes.UJPanelImagem uJPanelImagem1;
     // End of variables declaration//GEN-END:variables
 
