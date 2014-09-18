@@ -28,7 +28,6 @@ public class FrmLogin extends javax.swing.JFrame {
         Login usuario = new Login();
         usuario.setUsuario(txtUsuario.getText());
         usuario.setSenha(new String(ptxtSenha.getPassword()));
-        
         if (!DAO.pesquisarUsuarios(usuario).isEmpty()) {
             FrmPrincipal frm = new FrmPrincipal();
             frm.setVisible(true);

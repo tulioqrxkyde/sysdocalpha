@@ -1,10 +1,10 @@
-
 package Telas;
 
 import Entidades.DAO;
 import Entidades.Login;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,13 +21,17 @@ public class FrmUsuarios extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         for (Login l : DAO.listarUsuarios()) {
-        modelo.addRow(new String[] {l.getUsuario(),l.getSenha()});
+            modelo.addRow(new String[]{String.valueOf(l.getCodLogin()), l.getUsuario(), l.getSenha()});
         }
     }
-        public void deletarUsuarios(){
-        
-        DAO.deletar(jTable1.getSelectedRow());
-        
+
+    public void deletarUsuarios() {
+        Login login = new Login();
+        login.setCodLogin(Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
+        login.setUsuario(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
+        login.setSenha(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
+        DAO.deletar(login);
+        JOptionPane.showMessageDialog(null, "Usuário excluido com sucesso!");
     }
     
 
@@ -54,11 +58,11 @@ public class FrmUsuarios extends javax.swing.JFrame {
 
             },
             new String [] {
-                "          Usuarios", "          Senhas"
+                "Código", "          Usuarios", "          Senhas"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -151,14 +155,13 @@ public class FrmUsuarios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-                FrmCadSalvarUsuario form;
+        FrmCadSalvarUsuario form;
         try {
             form = new FrmCadSalvarUsuario();
             form.setVisible(true);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
-
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed

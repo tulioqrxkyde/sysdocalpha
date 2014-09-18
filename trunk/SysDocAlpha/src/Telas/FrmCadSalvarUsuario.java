@@ -12,28 +12,29 @@ import javax.swing.JOptionPane;
  * @author Farley
  */
 public class FrmCadSalvarUsuario extends javax.swing.JFrame {
-
+    
     final ConectaBanco cBanco = new ConectaBanco();
-
+    
     public FrmCadSalvarUsuario() throws ClassNotFoundException {
         initComponents();
         setLocationRelativeTo(null);
     }
-
+    
     public void CadastrarUsuarios() {
-
+        
         Login usuario = new Login();
         usuario.setUsuario(txtCadUsuario.getText());
         usuario.setSenha(new String(txtCadSenha.getText()));
         if (DAO.pesquisarUsuarios(usuario).size() <= 0) {
             DAO.salvar(usuario);
             JOptionPane.showMessageDialog(null, "Usuario Cadastrado com Sucesso!", "Cadastrado com Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            new FrmUsuarios().setVisible(true);
             dispose();
         } else {
-            JOptionPane.showMessageDialog(null, "Usuario já existente!","Erro!", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Usuario já existente!", "Erro!", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -131,12 +132,12 @@ public class FrmCadSalvarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCadUsuarioActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       
+        
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
+        
         CadastrarUsuarios();
     }//GEN-LAST:event_jButton2ActionPerformed
 
