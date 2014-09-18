@@ -1,4 +1,3 @@
-
 package Entidades;
 
 import Util.HibernateUtil;
@@ -13,32 +12,44 @@ import org.hibernate.criterion.Restrictions;
  */
 public class DAO {
 
-    static final Session sessao = HibernateUtil.getSessionFactory().openSession();
-    static final Transaction transacao = sessao.beginTransaction();
-
-    ;
-
     public static void salvar(Object u) {
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction transacao = sessao.beginTransaction();
         sessao.save(u);
         transacao.commit();
+        sessao.close();
     }
-    
+
     public static void deletar(Object u) {
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction transacao = sessao.beginTransaction();
         sessao.delete(u);
         transacao.commit();
+        sessao.close();
     }
-    
-     public static void editar(Object u) {
+
+    public static void editar(Object u) {
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction transacao = sessao.beginTransaction();
         sessao.update(u);
         transacao.commit();
+        sessao.close();
     }
 
     public static List<Login> pesquisarUsuarios(Login u) {
-        return (List<Login>) sessao.createCriteria(Login.class).add(Restrictions.ilike("usuario", u.getUsuario()))
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction transacao = sessao.beginTransaction();
+        List<Login> logins = sessao.createCriteria(Login.class).add(Restrictions.ilike("usuario", u.getUsuario()))
                 .add(Restrictions.ilike("senha", u.getSenha())).list();
+        sessao.close();
+        return logins;
     }
 
     public static List<Login> listarUsuarios() {
-        return (List<Login>) sessao.createCriteria(Login.class).list();
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction transacao = sessao.beginTransaction();
+        List<Login> logins = sessao.createCriteria(Login.class).list();
+        sessao.close();
+        return logins;
     }
 }
