@@ -21,7 +21,7 @@ public class FrmUsuarios extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         for (Login l : DAO.listarUsuarios()) {
-            modelo.addRow(new String[]{String.valueOf(l.getCodLogin()), l.getUsuario(), l.getSenha()});
+            modelo.addRow(new String[]{String.valueOf(l.getCodLogin()),l.getUsuario(), l.getSenha()});
         }
     }
 
@@ -34,6 +34,15 @@ public class FrmUsuarios extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Usuário excluido com sucesso!");
     }
     
+    
+     public void editarUsuarios() {
+        Login login = new Login();
+        login.setCodLogin(Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
+        login.setUsuario(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
+        login.setSenha(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
+        DAO.editar(login);
+        JOptionPane.showMessageDialog(null, "Usuário editado com sucesso!");
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -58,17 +67,9 @@ public class FrmUsuarios extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "          Usuarios", "          Senhas"
+                "Código", "Usuarios", "Senhas"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         jTable1.setGridColor(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(jTable1);
 
