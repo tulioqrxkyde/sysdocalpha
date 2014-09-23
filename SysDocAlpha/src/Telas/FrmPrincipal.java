@@ -58,16 +58,22 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
+        jButton5.setBackground(new java.awt.Color(255, 255, 255));
         jButton5.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icones/funcionario.png"))); // NOI18N
         jButton5.setText("Funcionario");
         jPanel2.add(jButton5);
 
+        jButton6.setBackground(new java.awt.Color(255, 255, 255));
         jButton6.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icones/scanner.png"))); // NOI18N
         jButton6.setText("Scanner");
         jPanel2.add(jButton6);
+
+        jButton7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.add(jButton7);
+
+        jButton8.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.add(jButton8);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -146,6 +152,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
 
         jMenu1.setText("Cadastro");
 
