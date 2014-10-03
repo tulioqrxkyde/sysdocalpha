@@ -1,6 +1,6 @@
 package Telas;
 
-import Conexao.ConectaBanco;
+
 import Entidades.Login;
 import Entidades.DAO;
 import java.util.logging.Level;
@@ -13,7 +13,6 @@ import javax.swing.JOptionPane;
  */
 public class FrmCadSalvarUsuario extends javax.swing.JFrame {
     
-    final ConectaBanco cBanco = new ConectaBanco();
     
     public FrmCadSalvarUsuario() throws ClassNotFoundException {
         initComponents();
@@ -55,7 +54,7 @@ public class FrmCadSalvarUsuario extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jButton2.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icones/user_add.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/sysdoc/resources/accept.png"))); // NOI18N
         jButton2.setText("Salvar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -64,7 +63,7 @@ public class FrmCadSalvarUsuario extends javax.swing.JFrame {
         });
 
         jButton3.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icones/cancel.png"))); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/sysdoc/resources/cancel.png"))); // NOI18N
         jButton3.setText("Cancelar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

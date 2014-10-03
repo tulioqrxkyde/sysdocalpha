@@ -94,7 +94,7 @@
               <Font name="Comic Sans MS" size="12" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icones/user_add.png"/>
+              <Image iconType="3" name="/br/sysdoc/resources/accept.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Salvar"/>
           </Properties>
@@ -108,7 +108,7 @@
               <Font name="Comic Sans MS" size="12" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icones/cancel.png"/>
+              <Image iconType="3" name="/br/sysdoc/resources/cancel.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
