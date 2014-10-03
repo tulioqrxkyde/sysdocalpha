@@ -160,6 +160,7 @@ public class FrmUsuarios extends javax.swing.JFrame {
         try {
             form = new FrmCadSalvarUsuario();
             form.setVisible(true);
+            dispose();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -173,6 +174,9 @@ public class FrmUsuarios extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         deletarUsuarios();
+        dispose();
+        FrmUsuarios form = new FrmUsuarios();
+        form.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
