@@ -1,6 +1,6 @@
 package Telas;
 
-import Conexao.ConectaBanco;
+
 import Entidades.Login;
 import Entidades.DAO;
 import java.sql.Connection;
@@ -14,13 +14,11 @@ import javax.swing.JOptionPane;
  */
 public class FrmLogin extends javax.swing.JFrame {
 
-    Connection con = null;
 
     public FrmLogin() throws ClassNotFoundException {
         initComponents();
         this.setLocationRelativeTo(null);
-        ConectaBanco.setCon(ConectaBanco.ConectaBanco());
-        con = ConectaBanco.ConectaBanco();
+
     }
 
     public void Logar() {
@@ -65,7 +63,7 @@ public class FrmLogin extends javax.swing.JFrame {
         jLabel2.setText("Senha:");
 
         jButton1.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icones/accept.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/sysdoc/resources/accept.png"))); // NOI18N
         jButton1.setText("Entrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,7 +77,7 @@ public class FrmLogin extends javax.swing.JFrame {
         });
 
         jButton2.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icones/cancel.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/sysdoc/resources/cancel.png"))); // NOI18N
         jButton2.setText("Cancelar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,7 +97,7 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         });
 
-        uJPanelImagem1.setImagem(new java.io.File("C:\\Users\\Farley\\Documents\\NetBeansProjects\\SysDocAlpha\\src\\Icones\\sysdoc.png"));
+        uJPanelImagem1.setImagem(new java.io.File("C:\\Users\\Farley\\Desktop\\sysdocalpha\\SysDocAlpha\\src\\br\\sysdoc\\resources\\sysdoc.png"));
 
         javax.swing.GroupLayout uJPanelImagem1Layout = new javax.swing.GroupLayout(uJPanelImagem1);
         uJPanelImagem1.setLayout(uJPanelImagem1Layout);
