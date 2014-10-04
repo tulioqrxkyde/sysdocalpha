@@ -5,10 +5,13 @@
  */
 package br.sysdoc.model.path.directories;
 
+import br.sysdoc.model.functionary.Functionary;
 import br.sysdoc.model.path.path.Paths;
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -16,13 +19,17 @@ import javax.persistence.Entity;
  */
 @Entity
 public class Folder extends Paths implements Serializable {
+    
+    @OneToOne(mappedBy = "folder",cascade = CascadeType.ALL)
+    private Functionary functionary;
 
     public Folder() {
         
     }
     
-    public Folder(String name) {
+    public Folder(String name, Functionary functionary) {
         setName(name);
+        this.functionary = functionary;
     }
 
     @Override
@@ -42,6 +49,20 @@ public class Folder extends Paths implements Serializable {
         }
         final Folder other = (Folder) obj;
         return Objects.equals(this.getName(), other.getName());
+    }
+
+    /**
+     * @return the functionary
+     */
+    public Functionary getFunctionary() {
+        return functionary;
+    }
+
+    /**
+     * @param functionary the functionary to set
+     */
+    public void setFunctionary(Functionary functionary) {
+        this.functionary = functionary;
     }
 
 }
