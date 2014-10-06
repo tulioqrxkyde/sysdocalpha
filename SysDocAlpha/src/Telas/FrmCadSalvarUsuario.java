@@ -1,10 +1,8 @@
 package Telas;
 
-
 import Entidades.Login;
 import Entidades.DAO;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,28 +10,39 @@ import javax.swing.JOptionPane;
  * @author Farley
  */
 public class FrmCadSalvarUsuario extends javax.swing.JFrame {
-    
-    
+
+    private Login login;
+
     public FrmCadSalvarUsuario() {
         initComponents();
         setLocationRelativeTo(null);
     }
-    
+
+    public FrmCadSalvarUsuario(Login login) {
+        this();
+        this.login = login;
+    }
+
     public void CadastrarUsuarios() {
-        
         Login usuario = new Login();
         usuario.setUsuario(txtCadUsuario.getText());
         usuario.setSenha(new String(txtCadSenha.getText()));
-        if (DAO.pesquisarUsuarios(usuario).size() <= 0) {
-            DAO.salvar(usuario);
-            JOptionPane.showMessageDialog(null, "Usuario Cadastrado com Sucesso!", "Cadastrado com Sucesso", JOptionPane.INFORMATION_MESSAGE);
-            new FrmUsuarios().setVisible(true);
-            dispose();
-        } else {
+        usuario.setCodLogin(login.getCodLogin());
+        if (DAO.pesquisarUsuarios(usuario).size() > 0) {
             JOptionPane.showMessageDialog(null, "Usuario já existente!", "Erro!", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            if (login != null) {
+                JOptionPane.showMessageDialog(null, "Usuario editado com Sucesso!", "Cadastrado com Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                DAO.editar(usuario);
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario Cadastrado com Sucesso!", "Cadastrado com Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                DAO.salvar(usuario);
+            }
         }
+        new FrmUsuarios().setVisible(true);
+        dispose();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -131,7 +140,7 @@ public class FrmCadSalvarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCadUsuarioActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
+
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -171,9 +180,7 @@ public class FrmCadSalvarUsuario extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-
-                    new FrmCadSalvarUsuario().setVisible(true);
-        
+                new FrmCadSalvarUsuario().setVisible(true);
             }
         });
     }
