@@ -2,6 +2,8 @@ package Telas;
 
 import Entidades.DAO;
 import Entidades.Login;
+import br.sysdoc.model.functionary.Functionary;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -10,6 +12,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Farley
  */
 public class FrmFuncionarios extends javax.swing.JFrame {
+    
+    List<Functionary> funcionarios;
 
     /**
      * Creates new form Teste
@@ -17,8 +21,27 @@ public class FrmFuncionarios extends javax.swing.JFrame {
     public FrmFuncionarios() {
         initComponents();
         setLocationRelativeTo(null);
+        funcionarios = DAO.listarFuncionarios();
     }
-
+    
+    public void deletarUsuarios() {
+        Login login = new Login();
+        login.setCodLogin(Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
+        login.setUsuario(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
+        login.setSenha(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
+        DAO.deletar(login);
+        JOptionPane.showMessageDialog(null, "Usuário excluido com sucesso!");
+    }
+    
+    public void editarUsuarios() {
+        Login login = new Login();
+        login.setCodLogin(Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
+        login.setUsuario(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
+        login.setSenha(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
+        DAO.editar(login);
+        JOptionPane.showMessageDialog(null, "Usuário editado com sucesso!");
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -94,6 +117,15 @@ public class FrmFuncionarios extends javax.swing.JFrame {
             }
         });
 
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
+
         jLabel1.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         jLabel1.setText("Buscar:");
 
@@ -159,7 +191,10 @@ public class FrmFuncionarios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new FrmCadFuncionario().setVisible(true);
+        FrmCadSalvarUsuario form;
+        form = new FrmCadSalvarUsuario();
+        form.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -167,12 +202,34 @@ public class FrmFuncionarios extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-    
+        deletarUsuarios();
+        dispose();
+        FrmFuncionarios form = new FrmFuncionarios();
+        form.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-    
+        editarUsuarios();
+        dispose();
+        FrmFuncionarios form = new FrmFuncionarios();
+        form.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        
+    }//GEN-LAST:event_jTextField1KeyReleased
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        
+        for (Functionary functionary : funcionarios) {
+            if (functionary.getName().startsWith(jTextField1.getText())) {
+                modelo.addRow(new String[]{functionary.getName()});
+            } else {
+                modelo.removeRow(modelo.getRowCount() - 1);
+            }
+        }
+    }//GEN-LAST:event_jTextField1KeyPressed
 
     /**
      * @param args the command line arguments
