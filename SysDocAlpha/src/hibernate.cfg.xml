@@ -12,5 +12,6 @@
     <property name="hibernate.connection.password">kiwi</property>
     <mapping class="Entidades.Login"/>
     <mapping class="br.sysdoc.model.path.directories.Folder"/>
+    <mapping class="br.sysdoc.model.functionary.Functionary"/>
   </session-factory>
 </hibernate-configuration>

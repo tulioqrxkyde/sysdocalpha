@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 public class FrmCadSalvarUsuario extends javax.swing.JFrame {
     
     
-    public FrmCadSalvarUsuario() throws ClassNotFoundException {
+    public FrmCadSalvarUsuario() {
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -171,11 +171,9 @@ public class FrmCadSalvarUsuario extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
+
                     new FrmCadSalvarUsuario().setVisible(true);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(FrmCadSalvarUsuario.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        
             }
         });
     }

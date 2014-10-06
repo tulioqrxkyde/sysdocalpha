@@ -62,10 +62,10 @@
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="24" pref="24" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="ptxtSenha" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
-                              <Component id="txtUsuario" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
+                              <Component id="ptxtSenha" min="-2" pref="126" max="-2" attributes="0"/>
+                              <Component id="txtUsuario" min="-2" pref="126" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
