@@ -36,7 +36,7 @@ public class PathFactory {
 
     public void createPath(Path path) throws IOException {
         if (!Files.exists(path)) {
-            Files.createDirectories(path.getParent());
+            Files.createDirectories(((isFile(path)) ? path.getParent() : path));
             if (isFile(path)) {
                 Files.createFile(path);
             }
@@ -70,7 +70,12 @@ public class PathFactory {
     }
 
     public boolean isFile(Path path) {
-        return path.toString().replaceAll("\\W", "").matches("\\w*.(?i)[a-z]{3,4}$");
+        String pathT = path.toString();
+        if (pathT.contains(".")) {
+            String[] split = path.toString().split("\\.");
+            return split[1].matches("[a-z]{3,4}");
+        }
+        return false;
     }
 
     /**
