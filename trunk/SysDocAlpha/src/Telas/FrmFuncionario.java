@@ -5,6 +5,15 @@
  */
 package Telas;
 
+import br.sysdoc.controller.GenericDAO;
+import br.sysdoc.factories.PathFactory;
+import br.sysdoc.model.functionary.Functionary;
+import br.sysdoc.model.path.directories.Folder;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Farley
@@ -53,6 +62,11 @@ public class FrmFuncionario extends javax.swing.JFrame {
         });
 
         jButton1.setText("Adicionar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Editar");
 
@@ -126,6 +140,31 @@ public class FrmFuncionario extends javax.swing.JFrame {
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        PathFactory path = PathFactory.
+                getInstance();
+
+        Folder folder = new Folder();
+        folder.setName(jTextField2.getText());
+        
+        Functionary functionary = new Functionary();
+        functionary.setName(jTextField2.getText());
+        functionary.setCpf(Integer.parseInt(jTextField3.getText()));
+        functionary.setAddress(jTextField4.getText());
+        functionary.setFolder(folder);
+
+        GenericDAO dao = new GenericDAO();
+        dao.saveorUpdate(functionary);
+        
+        Path pathNew = path.newPath(path.getRoot() + PathFactory.getPATH_CONST() + folder.getName());
+        try {
+            path.createPath(pathNew);
+        } catch (IOException ex) {
+            Logger.getLogger(FrmFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
