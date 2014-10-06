@@ -1,6 +1,7 @@
 package Entidades;
 
 import Util.HibernateUtil;
+import br.sysdoc.model.functionary.Functionary;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -15,7 +16,7 @@ public class DAO {
     public static void salvar(Object u) {
         Session sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction transacao = sessao.beginTransaction();
-        sessao.save(u);
+        sessao.saveOrUpdate(u);
         transacao.commit();
         sessao.close();
     }
@@ -43,6 +44,14 @@ public class DAO {
                 .add(Restrictions.ilike("senha", u.getSenha())).list();
         sessao.close();
         return logins;
+    }
+
+    public static List<Functionary> listarFuncionarios() {
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction transacao = sessao.beginTransaction();
+        List<Functionary> functs = sessao.createCriteria(Functionary.class).list();
+        sessao.close();
+        return functs;
     }
 
     public static List<Login> listarUsuarios() {
