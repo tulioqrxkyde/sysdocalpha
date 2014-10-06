@@ -151,12 +151,12 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-PathFactory path = PathFactory.
+        PathFactory path = PathFactory.
                 getInstance();
 
         Folder folder = new Folder();
         folder.setName(jTextField2.getText());
-        
+
         Functionary functionary = new Functionary();
         functionary.setName(jTextField2.getText());
         functionary.setCpf(jFormattedTextField1.getText());
@@ -165,14 +165,14 @@ PathFactory path = PathFactory.
 
         GenericDAO dao = new GenericDAO();
         dao.saveorUpdate(functionary);
-        
+
         Path pathNew = path.newPath(path.getRoot() + PathFactory.getPATH_CONST() + folder.getName());
         try {
             path.createPath(pathNew);
         } catch (IOException ex) {
             Logger.getLogger(FrmFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
