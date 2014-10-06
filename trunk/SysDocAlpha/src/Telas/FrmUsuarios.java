@@ -2,8 +2,6 @@ package Telas;
 
 import Entidades.DAO;
 import Entidades.Login;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -21,7 +19,7 @@ public class FrmUsuarios extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         for (Login l : DAO.listarUsuarios()) {
-            modelo.addRow(new String[]{String.valueOf(l.getCodLogin()),l.getUsuario(), l.getSenha()});
+            modelo.addRow(new String[]{String.valueOf(l.getCodLogin()), l.getUsuario(), l.getSenha()});
         }
     }
 
@@ -33,9 +31,8 @@ public class FrmUsuarios extends javax.swing.JFrame {
         DAO.deletar(login);
         JOptionPane.showMessageDialog(null, "Usuário excluido com sucesso!");
     }
-    
-    
-     public void editarUsuarios() {
+
+    public void editarUsuarios() {
         Login login = new Login();
         login.setCodLogin(Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
         login.setUsuario(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
@@ -85,6 +82,11 @@ public class FrmUsuarios extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/sysdoc/resources/user_edit.png"))); // NOI18N
         jButton2.setText("Editar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/sysdoc/resources/user_delete.png"))); // NOI18N
@@ -157,15 +159,9 @@ public class FrmUsuarios extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         FrmCadSalvarUsuario form;
-        try {
-            form = new FrmCadSalvarUsuario();
-            form.setVisible(true);
-            dispose();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        // TODO add your handling code here:
+        form = new FrmCadSalvarUsuario();
+        form.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -178,6 +174,13 @@ public class FrmUsuarios extends javax.swing.JFrame {
         FrmUsuarios form = new FrmUsuarios();
         form.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        editarUsuarios();
+        dispose();
+        FrmUsuarios form = new FrmUsuarios();
+        form.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

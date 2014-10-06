@@ -62,6 +62,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jButton5.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/sysdoc/resources/funcionario.png"))); // NOI18N
         jButton5.setText("Funcionario");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton5);
 
         jButton6.setBackground(new java.awt.Color(255, 255, 255));
@@ -231,6 +236,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         
       jlData.setText(formato.format(datasistema));
     }//GEN-LAST:event_formWindowOpened
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        new FrmFuncionario().setVisible(true);
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
