@@ -159,10 +159,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        FrmCadSalvarUsuario form;
-        form = new FrmCadSalvarUsuario();
-        form.setVisible(true);
-        dispose();
+        new FrmCadFuncionario().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

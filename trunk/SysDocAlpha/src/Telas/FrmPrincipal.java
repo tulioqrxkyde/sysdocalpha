@@ -238,7 +238,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        new FrmCadFuncionario().setVisible(true);
+        new FrmFuncionarios().setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
