@@ -3,10 +3,7 @@ package Telas;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import javax.swing.Timer;
 
 
 /**
@@ -49,11 +46,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
-            }
-        });
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new java.awt.GridLayout(1, 0));
@@ -216,29 +208,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
         FrmUsuarios form;
         form = new FrmUsuarios();
         form.setVisible(true);
-
-
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         System.exit(0);        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-       
-        
-      Date datasistema = new Date();
-      SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-      jlData.setText(formato.format(datasistema));
-       
-      Timer timer = new Timer(1000, new hora());
-      timer.start();
-        
-      jlData.setText(formato.format(datasistema));
-    }//GEN-LAST:event_formWindowOpened
-
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        new FrmFuncionarios().setVisible(true);
+        new FrmCadFuncionario().setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
