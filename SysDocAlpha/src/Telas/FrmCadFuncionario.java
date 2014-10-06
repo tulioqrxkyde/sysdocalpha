@@ -159,7 +159,7 @@ PathFactory path = PathFactory.
         
         Functionary functionary = new Functionary();
         functionary.setName(jTextField2.getText());
-        functionary.setCpf(Integer.parseInt(jFormattedTextField1.getText()));
+        functionary.setCpf(jFormattedTextField1.getText());
         functionary.setAddress(jTextField4.getText());
         functionary.setFolder(folder);
 

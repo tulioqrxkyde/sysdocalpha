@@ -28,7 +28,7 @@ public class Functionary implements Serializable {
     @Column(length = 50)
     private String name;
 
-    private int cpf;
+    private String cpf;
 
     @Column(length = 70)
     private String address;
@@ -60,14 +60,14 @@ public class Functionary implements Serializable {
     /**
      * @return the cpf
      */
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
     /**
      * @param cpf the cpf to set
      */
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
