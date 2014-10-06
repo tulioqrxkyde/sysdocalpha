@@ -17,28 +17,6 @@ public class FrmFuncionarios extends javax.swing.JFrame {
     public FrmFuncionarios() {
         initComponents();
         setLocationRelativeTo(null);
-        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-        for (Login l : DAO.listarUsuarios()) {
-            modelo.addRow(new String[]{String.valueOf(l.getCodLogin()), l.getUsuario(), l.getSenha()});
-        }
-    }
-
-    public void deletarUsuarios() {
-        Login login = new Login();
-        login.setCodLogin(Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
-        login.setUsuario(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
-        login.setSenha(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
-        DAO.deletar(login);
-        JOptionPane.showMessageDialog(null, "Usuário excluido com sucesso!");
-    }
-
-    public void editarUsuarios() {
-        Login login = new Login();
-        login.setCodLogin(Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
-        login.setUsuario(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
-        login.setSenha(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
-        DAO.editar(login);
-        JOptionPane.showMessageDialog(null, "Usuário editado com sucesso!");
     }
 
     @SuppressWarnings("unchecked")
@@ -192,17 +170,11 @@ public class FrmFuncionarios extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        deletarUsuarios();
-        dispose();
-        FrmFuncionarios form = new FrmFuncionarios();
-        form.setVisible(true);
+    
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        editarUsuarios();
-        dispose();
-        FrmFuncionarios form = new FrmFuncionarios();
-        form.setVisible(true);
+    
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
