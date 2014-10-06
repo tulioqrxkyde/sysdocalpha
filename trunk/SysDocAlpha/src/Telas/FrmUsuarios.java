@@ -169,20 +169,29 @@ public class FrmUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        deletarUsuarios();
-        dispose();
-        FrmUsuarios form = new FrmUsuarios();
-        form.setVisible(true);
+        if (jTable1.getSelectedRow() > -1) {
+            deletarUsuarios();
+            dispose();
+            FrmUsuarios form = new FrmUsuarios();
+            form.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione uma linha para realizar a exclusão.");
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Login login = new Login();
-        login.setCodLogin(Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
-        login.setUsuario(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
-        login.setSenha(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
-        
-        FrmCadSalvarUsuario form = new FrmCadSalvarUsuario(login);
-        form.setVisible(true);
+        if (jTable1.getSelectedRow() > -1) {
+            Login login = new Login();
+            login.setCodLogin(Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
+            login.setUsuario(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
+            login.setSenha(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
+
+            FrmCadSalvarUsuario form = new FrmCadSalvarUsuario(login);
+            form.setVisible(true);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione uma linha para realizar a edição.");
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

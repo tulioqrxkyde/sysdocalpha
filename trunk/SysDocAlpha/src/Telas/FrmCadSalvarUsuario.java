@@ -2,7 +2,6 @@ package Telas;
 
 import Entidades.Login;
 import Entidades.DAO;
-import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -27,7 +26,9 @@ public class FrmCadSalvarUsuario extends javax.swing.JFrame {
         Login usuario = new Login();
         usuario.setUsuario(txtCadUsuario.getText());
         usuario.setSenha(new String(txtCadSenha.getText()));
-        usuario.setCodLogin(login.getCodLogin());
+        if (login != null) {
+            usuario.setCodLogin(login.getCodLogin());
+        }
         if (DAO.pesquisarUsuarios(usuario).size() > 0) {
             JOptionPane.showMessageDialog(null, "Usuario já existente!", "Erro!", JOptionPane.INFORMATION_MESSAGE);
         } else {
