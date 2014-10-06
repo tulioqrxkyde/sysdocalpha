@@ -176,9 +176,12 @@ public class FrmUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        editarUsuarios();
-        dispose();
-        FrmUsuarios form = new FrmUsuarios();
+        Login login = new Login();
+        login.setCodLogin(Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
+        login.setUsuario(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
+        login.setSenha(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
+        
+        FrmCadSalvarUsuario form = new FrmCadSalvarUsuario(login);
         form.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
