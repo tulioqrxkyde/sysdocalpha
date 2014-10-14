@@ -6,6 +6,7 @@
 package br.sysdoc.controller;
 
 import br.sysdoc.factories.ManagerConnection;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -16,12 +17,22 @@ import java.util.List;
 public class GenericDAO<T> extends ManagerConnection {
 
     /**
-     * Descrição: Salva ou atualiza um objeto de tipo genérico.
+     * Descrição: Salva um objeto de tipo genérico.
      * 
      * @param object 
      */
-    public void saveorUpdate(T object) {
-        getSession().saveOrUpdate(object);
+    public void save(T object) {
+        getSession().save(object);
+        getTransaction().commit();
+    }
+    
+    /**
+     * Descrição: Atualiza um objeto de tipo genérico.
+     * 
+     * @param object 
+     */
+    public void update(T object) {
+        getSession().update(object);
         getTransaction().commit();
     }
 
@@ -42,8 +53,8 @@ public class GenericDAO<T> extends ManagerConnection {
      * @param value valor
      * @return  
      */
-    public T get(T object, Integer value) {
-        return ((T) getSession().get(object.getClass(), value));
+    public T get(T object, Object value) {
+        return ((T) getSession().get(object.getClass(), (Serializable) value));
     }
 
     /**

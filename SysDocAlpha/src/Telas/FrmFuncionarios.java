@@ -1,7 +1,6 @@
 package Telas;
 
 import Entidades.DAO;
-import Entidades.Login;
 import br.sysdoc.model.functionary.Functionary;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -11,9 +10,11 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Farley
  */
-public class FrmFuncionarios extends javax.swing.JFrame {
-    
-    List<Functionary> funcionarios;
+public class FrmFuncionarios extends javax.swing.JFrame implements Comparable {
+
+    List<Functionary> listaFuncionarios;
+    DefaultTableModel modelo;
+    int indexSelected = 0;
 
     /**
      * Creates new form Teste
@@ -21,27 +22,25 @@ public class FrmFuncionarios extends javax.swing.JFrame {
     public FrmFuncionarios() {
         initComponents();
         setLocationRelativeTo(null);
-        funcionarios = DAO.listarFuncionarios();
+        listaFuncionarios = DAO.listarFuncionarios();
+        modelo = (DefaultTableModel) jTable1.getModel();
     }
-    
-    public void deletarUsuarios() {
-        Login login = new Login();
-        login.setCodLogin(Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
-        login.setUsuario(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
-        login.setSenha(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
-        DAO.deletar(login);
+
+    public void deletarFuncionarios(Functionary functionary) {
+        modelo.removeRow(jTable1.getSelectedRow());
+        DAO.deletar(functionary);
         JOptionPane.showMessageDialog(null, "Usuário excluido com sucesso!");
     }
-    
-    public void editarUsuarios() {
-        Login login = new Login();
-        login.setCodLogin(Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
-        login.setUsuario(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
-        login.setSenha(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
-        DAO.editar(login);
-        JOptionPane.showMessageDialog(null, "Usuário editado com sucesso!");
+
+    public void editarFuncionarios(Functionary functionary) {
+        FrmCadFuncionario telaFuncionario = new FrmCadFuncionario(functionary);
+        telaFuncionario.setVisible(true);
     }
-    
+
+    public void atualizarTabela() {
+        modelo.fireTableDataChanged();
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -67,11 +66,11 @@ public class FrmFuncionarios extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nome", "CPF"
+                "Funcionário"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -82,7 +81,6 @@ public class FrmFuncionarios extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/sysdoc/resources/user_add.png"))); // NOI18N
         jButton1.setText("Novo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,7 +89,6 @@ public class FrmFuncionarios extends javax.swing.JFrame {
         });
 
         jButton2.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/sysdoc/resources/user_edit.png"))); // NOI18N
         jButton2.setText("Editar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,7 +97,6 @@ public class FrmFuncionarios extends javax.swing.JFrame {
         });
 
         jButton3.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/sysdoc/resources/user_delete.png"))); // NOI18N
         jButton3.setText("Excluir");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,7 +105,6 @@ public class FrmFuncionarios extends javax.swing.JFrame {
         });
 
         jButton4.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/sysdoc/resources/cancel.png"))); // NOI18N
         jButton4.setText("Sair");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,9 +113,6 @@ public class FrmFuncionarios extends javax.swing.JFrame {
         });
 
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField1KeyPressed(evt);
-            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField1KeyReleased(evt);
             }
@@ -160,7 +152,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -191,8 +183,8 @@ public class FrmFuncionarios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        FrmCadSalvarUsuario form;
-        form = new FrmCadSalvarUsuario();
+        FrmCadFuncionario form;
+        form = new FrmCadFuncionario();
         form.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -202,34 +194,31 @@ public class FrmFuncionarios extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        deletarUsuarios();
-        dispose();
-        FrmFuncionarios form = new FrmFuncionarios();
-        form.setVisible(true);
+        deletarFuncionarios((Functionary) jTable1.getValueAt(jTable1.getSelectedRow(), jTable1.getSelectedColumn()));
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        editarUsuarios();
+        editarFuncionarios((Functionary) jTable1.getValueAt(jTable1.getSelectedRow(), 0));
         dispose();
-        FrmFuncionarios form = new FrmFuncionarios();
-        form.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
-        
-    }//GEN-LAST:event_jTextField1KeyReleased
-
-    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
-        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-        
-        for (Functionary functionary : funcionarios) {
-            if (functionary.getName().startsWith(jTextField1.getText())) {
-                modelo.addRow(new String[]{functionary.getName()});
-            } else {
-                modelo.removeRow(modelo.getRowCount() - 1);
+        String valor = jTextField1.getText();
+        modelo.setRowCount(0);
+        if (valor.isEmpty()) {
+            modelo.setRowCount(0);
+        } else {
+            for (Functionary functionary : listaFuncionarios) {
+                if (functionary.getName().regionMatches(true, 0, valor, 0, valor.length())) {
+                    if (!modelo.getDataVector().contains(functionary.getName())) {
+                        modelo.addRow(new Functionary[]{functionary});
+                    } else {
+                        modelo.setRowCount(0);
+                    }
+                }
             }
         }
-    }//GEN-LAST:event_jTextField1KeyPressed
+    }//GEN-LAST:event_jTextField1KeyReleased
 
     /**
      * @param args the command line arguments
@@ -278,4 +267,10 @@ public class FrmFuncionarios extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public int compareTo(Object t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

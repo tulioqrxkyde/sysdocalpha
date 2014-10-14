@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 
 /**
@@ -20,7 +21,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class Folder extends Paths implements Serializable {
     
-    @OneToOne(mappedBy = "folder",cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "folder",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Functionary functionary;
 
     public Folder() {
