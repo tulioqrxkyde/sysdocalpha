@@ -5,6 +5,7 @@
  */
 package Telas;
 
+import Util.Util;
 import br.sysdoc.controller.GenericDAO;
 import br.sysdoc.factories.PathFactory;
 import br.sysdoc.model.functionary.Functionary;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,12 +22,22 @@ import java.util.logging.Logger;
  */
 public class FrmCadFuncionario extends javax.swing.JFrame {
 
+    Functionary functionaryE;
+
     /**
      * Creates new form FrmFuncionario
      */
     public FrmCadFuncionario() {
         initComponents();
         setLocationRelativeTo(null);
+    }
+
+    public FrmCadFuncionario(Functionary functionary) {
+        this();
+        this.functionaryE = functionary;
+        jTextField2.setText(functionary.getName());
+        jFormattedTextField1.setText(functionary.getCpf());
+        jTextField4.setText(functionary.getAddress());
     }
 
     /**
@@ -151,32 +163,39 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        PathFactory path = PathFactory.
-                getInstance();
+        if (!Util.CPF(jFormattedTextField1.getText().replaceAll("\\W*", ""))) {
+            JOptionPane.showMessageDialog(null, "CPF inválido.");
+        } else {
+            PathFactory path = PathFactory.
+                    getInstance();
 
-        Folder folder = new Folder();
-        folder.setName(jTextField2.getText());
+            Folder folder = new Folder();
+            folder.setName(jTextField2.getText());
 
-        Functionary functionary = new Functionary();
-        functionary.setName(jTextField2.getText());
-        functionary.setCpf(jFormattedTextField1.getText());
-        functionary.setAddress(jTextField4.getText());
-        functionary.setFolder(folder);
+            Functionary functionary = new Functionary();
+            functionary.setName(jTextField2.getText());
+            functionary.setCpf(jFormattedTextField1.getText());
+            functionary.setAddress(jTextField4.getText());
 
-        GenericDAO dao = new GenericDAO();
-        dao.saveorUpdate(functionary);
-
-        Path pathNew = path.newPath(path.getRoot() + PathFactory.getPATH_CONST() + folder.getName());
-        try {
-            path.createPath(pathNew);
-        } catch (IOException ex) {
-            Logger.getLogger(FrmFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
+            GenericDAO dao = new GenericDAO();
+            if (functionaryE == null) {
+                dao.save(functionary);
+                functionary.setFolder(folder);
+            } else {
+                functionary.setId(functionaryE.getId());
+                functionary.setFolder(functionaryE.getFolder());
+                dao.update(functionary);
+            }
+            Path pathNew = path.newPath(path.getRoot() + PathFactory.getPATH_CONST() + folder.getName());
+            try {
+                path.createPath(pathNew);
+            } catch (IOException ex) {
+                Logger.getLogger(FrmFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
