@@ -98,7 +98,7 @@ public class FrmUsuarios extends javax.swing.JFrame {
         });
 
         jButton4.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/sysdoc/resources/cancel.png"))); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/sysdoc/resources/cancelar.png"))); // NOI18N
         jButton4.setText("Sair");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
