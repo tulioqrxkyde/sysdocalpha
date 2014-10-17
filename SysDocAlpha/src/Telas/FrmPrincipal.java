@@ -4,6 +4,8 @@ package Telas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -74,6 +76,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel2.add(jButton7);
 
         jButton8.setBackground(new java.awt.Color(255, 255, 255));
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/sysdoc/resources/logof.png"))); // NOI18N
+        jButton8.setText("Sair");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton8);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -215,8 +224,17 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        new FrmCadFuncionario().setVisible(true);
+        new FrmFuncionarios().setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        try {
+            new FrmLogin().setVisible(true);
+            dispose();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments
