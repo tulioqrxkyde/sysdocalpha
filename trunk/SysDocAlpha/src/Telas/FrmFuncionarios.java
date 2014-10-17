@@ -81,6 +81,7 @@ public class FrmFuncionarios extends javax.swing.JFrame implements Comparable {
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/sysdoc/resources/user_add.png"))); // NOI18N
         jButton1.setText("Novo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,6 +90,7 @@ public class FrmFuncionarios extends javax.swing.JFrame implements Comparable {
         });
 
         jButton2.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/sysdoc/resources/user_edit.png"))); // NOI18N
         jButton2.setText("Editar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,6 +99,7 @@ public class FrmFuncionarios extends javax.swing.JFrame implements Comparable {
         });
 
         jButton3.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/sysdoc/resources/user_delete.png"))); // NOI18N
         jButton3.setText("Excluir");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,6 +108,7 @@ public class FrmFuncionarios extends javax.swing.JFrame implements Comparable {
         });
 
         jButton4.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/sysdoc/resources/cancelar.png"))); // NOI18N
         jButton4.setText("Sair");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
