@@ -30,6 +30,7 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
     public FrmCadFuncionario() {
         initComponents();
         setLocationRelativeTo(null);
+        labelCpf.setVisible(false);
     }
 
     public FrmCadFuncionario(Functionary functionary) {
@@ -58,6 +59,7 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        labelCpf = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -102,6 +104,10 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
             }
         });
 
+        labelCpf.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
+        labelCpf.setForeground(new java.awt.Color(255, 0, 51));
+        labelCpf.setText("jLabel4");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -117,9 +123,12 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                    .addComponent(jTextField2))
+                    .addComponent(jTextField2)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(labelCpf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(99, 99, 99))
         );
         jPanel1Layout.setVerticalGroup(
@@ -132,7 +141,9 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelCpf))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -164,7 +175,8 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (!Util.CPF(jFormattedTextField1.getText().replaceAll("\\W*", ""))) {
-            JOptionPane.showMessageDialog(null, "CPF inválido.");
+            labelCpf.setText("CPF inválido.");
+            labelCpf.setVisible(true);
         } else {
             PathFactory path = PathFactory.
                     getInstance();
@@ -192,6 +204,7 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(FrmFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
             }
+            JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso.");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -245,5 +258,6 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JLabel labelCpf;
     // End of variables declaration//GEN-END:variables
 }
