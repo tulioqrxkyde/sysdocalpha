@@ -66,11 +66,11 @@ public class FrmFuncionarios extends javax.swing.JFrame implements Comparable {
 
             },
             new String [] {
-                "Funcionário"
+                "Nome", "CPF"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -202,8 +202,13 @@ public class FrmFuncionarios extends javax.swing.JFrame implements Comparable {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        editarFuncionarios((Functionary) jTable1.getValueAt(jTable1.getSelectedRow(), 0));
-        dispose();
+        for (Functionary f : listaFuncionarios) {
+           if(f.getCpf().equals(jTable1.getValueAt(jTable1.getSelectedRow(), 1))) {
+               editarFuncionarios(f);
+               dispose();
+               break;
+           }
+        }  
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
@@ -213,9 +218,11 @@ public class FrmFuncionarios extends javax.swing.JFrame implements Comparable {
             modelo.setRowCount(0);
         } else {
             for (Functionary functionary : listaFuncionarios) {
-                if (functionary.getName().regionMatches(true, 0, valor, 0, valor.length())) {
+                if (functionary.getName().regionMatches(true, 0, valor, 0, valor.length())
+                        || functionary.getCpf().regionMatches(true, 0, valor, 0, valor.length())) {
                     if (!modelo.getDataVector().contains(functionary.getName())) {
-                        modelo.addRow(new Functionary[]{functionary});
+                        modelo.addRow(new String[]{functionary.getName(), 
+                            functionary.getCpf()});
                     } else {
                         modelo.setRowCount(0);
                     }
