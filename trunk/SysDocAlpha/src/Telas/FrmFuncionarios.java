@@ -203,12 +203,12 @@ public class FrmFuncionarios extends javax.swing.JFrame implements Comparable {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         for (Functionary f : listaFuncionarios) {
-           if(f.getCpf().equals(jTable1.getValueAt(jTable1.getSelectedRow(), 1))) {
-               editarFuncionarios(f);
-               dispose();
-               break;
-           }
-        }  
+            if (f.getCpf().equals(jTable1.getValueAt(jTable1.getSelectedRow(), 1))) {
+                editarFuncionarios(f);
+                dispose();
+                break;
+            }
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
@@ -219,9 +219,10 @@ public class FrmFuncionarios extends javax.swing.JFrame implements Comparable {
         } else {
             for (Functionary functionary : listaFuncionarios) {
                 if (functionary.getName().regionMatches(true, 0, valor, 0, valor.length())
+                        || functionary.getName().contains(" " + valor)
                         || functionary.getCpf().regionMatches(true, 0, valor, 0, valor.length())) {
                     if (!modelo.getDataVector().contains(functionary.getName())) {
-                        modelo.addRow(new String[]{functionary.getName(), 
+                        modelo.addRow(new String[]{functionary.getName(),
                             functionary.getCpf()});
                     } else {
                         modelo.setRowCount(0);
