@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.sysdoc.model.path.directories;
 
-import br.sysdoc.model.functionary.Functionary;
+import br.sysdoc.model.entidades.Funcionario;
 import br.sysdoc.model.path.path.Paths;
 import java.io.Serializable;
 import java.util.Objects;
@@ -14,21 +10,18 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 
-/**
- *
- * @author tulio.xcrtf
- */
+
 @Entity
 public class Folder extends Paths implements Serializable {
     
     @OneToOne(mappedBy = "folder",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Functionary functionary;
+    private Funcionario functionary;
 
     public Folder() {
         
     }
     
-    public Folder(String name, Functionary functionary) {
+    public Folder(String name, Funcionario functionary) {
         setName(name);
         this.functionary = functionary;
     }
@@ -55,14 +48,14 @@ public class Folder extends Paths implements Serializable {
     /**
      * @return the functionary
      */
-    public Functionary getFunctionary() {
+    public Funcionario getFunctionary() {
         return functionary;
     }
 
     /**
      * @param functionary the functionary to set
      */
-    public void setFunctionary(Functionary functionary) {
+    public void setFunctionary(Funcionario functionary) {
         this.functionary = functionary;
     }
 
