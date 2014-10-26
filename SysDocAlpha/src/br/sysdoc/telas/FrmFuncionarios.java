@@ -1,8 +1,12 @@
 package br.sysdoc.telas;
 
+import br.sysdoc.factories.PathFactory;
 import br.sysdoc.model.entidades.DAO;
 import br.sysdoc.model.entidades.Funcionario;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,11 +28,26 @@ public class FrmFuncionarios extends javax.swing.JFrame implements Comparable {
         setLocationRelativeTo(null);
         listaFuncionarios = DAO.listarFuncionarios();
         modelo = (DefaultTableModel) jTable1.getModel();
+        for (Funcionario func : listaFuncionarios) {
+            modelo.addRow(new String[]{func.getName(), func.getCpf()}
+            );
+        }
     }
 
     public void deletarFuncionarios(Funcionario functionary) {
         modelo.removeRow(jTable1.getSelectedRow());
         DAO.deletar(functionary);
+
+        PathFactory path = PathFactory.getInstance();
+
+        try {
+            path.deletePath(path.newPath(path.getRoot() + PathFactory.getPATH_CONST() + functionary.getName()));
+
+        } catch (IOException ex) {
+            Logger.getLogger(FrmFuncionarios.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+
         JOptionPane.showMessageDialog(null, "Usuário excluido com sucesso!");
     }
 
@@ -198,7 +217,13 @@ public class FrmFuncionarios extends javax.swing.JFrame implements Comparable {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        deletarFuncionarios((Funcionario) jTable1.getValueAt(jTable1.getSelectedRow(), jTable1.getSelectedColumn()));
+        for (Funcionario f : listaFuncionarios) {
+            if (f.getCpf().equals(jTable1.getValueAt(jTable1.getSelectedRow(), 1))) {
+                deletarFuncionarios(f);
+                dispose();
+                break;
+            }
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -214,19 +239,16 @@ public class FrmFuncionarios extends javax.swing.JFrame implements Comparable {
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
         String valor = jTextField1.getText();
         modelo.setRowCount(0);
-        if (valor.isEmpty()) {
-            modelo.setRowCount(0);
-        } else {
-            for (Funcionario functionary : listaFuncionarios) {
-                if (functionary.getName().regionMatches(true, 0, valor, 0, valor.length())
-                        || functionary.getName().contains(" " + valor)
-                        || functionary.getCpf().regionMatches(true, 0, valor, 0, valor.length())) {
-                    if (!modelo.getDataVector().contains(functionary.getName())) {
-                        modelo.addRow(new String[]{functionary.getName(),
-                            functionary.getCpf()});
-                    } else {
-                        modelo.setRowCount(0);
-                    }
+
+        for (Funcionario functionary : listaFuncionarios) {
+            if (functionary.getName().regionMatches(true, 0, valor, 0, valor.length())
+                    || functionary.getName().contains(" " + valor)
+                    || functionary.getCpf().regionMatches(true, 0, valor, 0, valor.length())) {
+                if (!modelo.getDataVector().contains(functionary.getName())) {
+                    modelo.addRow(new String[]{functionary.getName(),
+                        functionary.getCpf()});
+                } else {
+                    modelo.setRowCount(0);
                 }
             }
         }
@@ -246,16 +268,21 @@ public class FrmFuncionarios extends javax.swing.JFrame implements Comparable {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmFuncionarios.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmFuncionarios.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmFuncionarios.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmFuncionarios.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>

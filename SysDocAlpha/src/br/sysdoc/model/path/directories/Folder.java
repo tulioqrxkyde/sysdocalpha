@@ -10,11 +10,10 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 
-
 @Entity
 public class Folder extends Paths implements Serializable {
     
-    @OneToOne(mappedBy = "folder",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Funcionario functionary;
 
     public Folder() {
