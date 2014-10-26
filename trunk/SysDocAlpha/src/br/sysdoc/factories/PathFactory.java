@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.sysdoc.factories;
 
 import java.io.IOException;
@@ -13,10 +9,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Iterator;
 
-/**
- *
- * @author tulio.xcrtf
- */
+
 public class PathFactory {
 
     private static final String PATH_CONST = "sysdoc/";
