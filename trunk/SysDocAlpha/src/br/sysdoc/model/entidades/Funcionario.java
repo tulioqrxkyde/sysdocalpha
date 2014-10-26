@@ -32,7 +32,7 @@ public class Funcionario implements Serializable {
     @Column(length = 70)
     private String address;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "functionary", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Folder folder;
 
     public void setId(int id) {

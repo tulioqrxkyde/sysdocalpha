@@ -20,6 +20,7 @@ public class FrmCadSalvarUsuario extends javax.swing.JFrame {
     public FrmCadSalvarUsuario(Login login) {
         this();
         this.login = login;
+        txtCadUsuario.setText(login.getUsuario());
     }
 
     public void CadastrarUsuarios() {

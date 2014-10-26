@@ -23,7 +23,7 @@ public abstract class ManagerConnection {
      * @return the session
      */
     public Session getSession() {
-        if (session == null) {
+        if (session == null || !session.isOpen()) {
             openSession();
         }
         return session;
@@ -40,8 +40,8 @@ public abstract class ManagerConnection {
      * @return the transaction
      */
     public Transaction getTransaction() {
-        if (transaction == null) {
-            if (session == null) {
+        if (transaction == null || !transaction.isActive()) {
+            if (session == null || !session.isOpen()) {
                 openSession();
             }
             beginTransaction();

@@ -1,4 +1,3 @@
-
 package br.sysdoc.telas;
 
 import br.sysdoc.util.Util;
@@ -8,6 +7,7 @@ import br.sysdoc.model.entidades.Funcionario;
 import br.sysdoc.model.path.directories.Folder;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -170,12 +170,26 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
         if (!Util.CPF(jFormattedTextField1.getText().replaceAll("\\W*", ""))) {
             labelCpf.setText("CPF inválido.");
             labelCpf.setVisible(true);
         } else {
-            PathFactory path = PathFactory.
-                    getInstance();
+            GenericDAO dao = new GenericDAO();
+
+            if (!jFormattedTextField1.getText().isEmpty()) {
+
+                List<Funcionario> funcionarios = dao.list(new Funcionario());
+
+                for (Funcionario func : funcionarios) {
+                    if (func.getCpf().equals((jFormattedTextField1.getText()))) {
+                        JOptionPane.showMessageDialog(null, "CPF já cadastrado.");
+                        return;
+                    }
+                }
+            }
+
+            PathFactory path = PathFactory.getInstance();
 
             Folder folder = new Folder();
             folder.setName(jTextField2.getText());
@@ -184,16 +198,15 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
             functionary.setName(jTextField2.getText());
             functionary.setCpf(jFormattedTextField1.getText());
             functionary.setAddress(jTextField4.getText());
-
-            GenericDAO dao = new GenericDAO();
-            if (functionaryE == null) {
-                dao.save(functionary);
-                functionary.setFolder(folder);
-            } else {
+            folder.setFunctionary(functionary);
+            functionary.setFolder(folder);
+            
+             if(functionaryE != null) {
                 functionary.setId(functionaryE.getId());
-                functionary.setFolder(functionaryE.getFolder());
                 dao.update(functionary);
             }
+            dao.save(folder);
+
             Path pathNew = path.newPath(path.getRoot() + PathFactory.getPATH_CONST() + folder.getName());
             try {
                 path.createPath(pathNew);
@@ -201,6 +214,7 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
                 Logger.getLogger(FrmFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
             }
             JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso.");
+            dispose();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
