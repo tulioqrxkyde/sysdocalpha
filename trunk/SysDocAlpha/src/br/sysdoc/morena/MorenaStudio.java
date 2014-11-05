@@ -83,7 +83,7 @@ public class MorenaStudio extends JApplet {
         public class RemoveAllAction extends AbstractAction implements Runnable {
 
             RemoveAllAction() {
-                super("remove all");
+                super("Remover todos");
             }
 
             public synchronized void actionPerformed(ActionEvent event) {
@@ -100,12 +100,12 @@ public class MorenaStudio extends JApplet {
         private class AcquireImageAction extends AbstractAction implements TransferListener {
 
             AcquireImageAction() {
-                super("acquire image");
+                super("Digitalizar");
             }
 
             public synchronized void actionPerformed(ActionEvent event) {
                 try {
-                    status.setText("Working ...");
+                    status.setText("Processando ...");
                     Device device = manager.selectDevice(MainPanel.this);
                     if (device != null) {
                         if (device instanceof Scanner) {
@@ -121,12 +121,12 @@ public class MorenaStudio extends JApplet {
                         }
                         status.setText("Selected " + device + "  ...");
                     } else {
-                        status.setText("Failed, no device connected ...");
+                        status.setText("Falha, Nenhum dispositivo conectado ...");
                     }
                 } catch (Throwable exception) {
                     JOptionPane.showMessageDialog(MainPanel.this, exception.toString(), "Error", JOptionPane.ERROR_MESSAGE);
                     exception.printStackTrace();
-                    status.setText("Failed, try again ...");
+                    status.setText("Falhou, tente novamente ...");
                     setEnabled(true);
                     cancelAction.setEnabled(false);
                 }
@@ -167,7 +167,7 @@ public class MorenaStudio extends JApplet {
         private class CancelAction extends AbstractAction {
 
             CancelAction() {
-                super("cancel");
+                super("Cancelar");
                 setEnabled(false);
             }
 
@@ -196,7 +196,7 @@ public class MorenaStudio extends JApplet {
             }
 
             SaveImageAction() {
-                super("save to file");
+                super("Salvar arquivo");
             }
 
             public void actionPerformed(ActionEvent event) {
@@ -205,7 +205,7 @@ public class MorenaStudio extends JApplet {
 
             public synchronized void run() {
                 try {
-                    status.setText("Working ...");
+                    status.setText("Processando ...");
                     BufferedImage bufferedImage = selected.getImage();
                     JFileChooser chooser = new JFileChooser();
                     String e[] = ImageIO.getWriterFormatNames();
@@ -222,14 +222,14 @@ public class MorenaStudio extends JApplet {
                             file = new File(file.getParentFile(), name + "." + ext);
                         }
                         ImageIO.write(bufferedImage, ext, file);
-                        status.setText("Done - image is saved to " + file + "  ...");
+                        status.setText("Pronto - Imagem salva como " + file + "  ...");
                     } else {
-                        status.setText("Canceled  ...");
+                        status.setText("Cancelado  ...");
                     }
                 } catch (Throwable exception) {
                     JOptionPane.showMessageDialog(MainPanel.this, exception.toString(), "Error", JOptionPane.ERROR_MESSAGE);
                     exception.printStackTrace();
-                    status.setText("Failed, try again ...");
+                    status.setText("Falha, tente novamente ...");
                 }
             }
 
@@ -241,7 +241,7 @@ public class MorenaStudio extends JApplet {
         private class UploadImageAction extends AbstractAction implements Runnable {
 
             UploadImageAction() {
-                super("upload to server");
+                super("Fazer Upload");
             }
 
             public void actionPerformed(ActionEvent event) {
@@ -371,13 +371,13 @@ public class MorenaStudio extends JApplet {
 
 //    @Override
         public void deviceConnected(Device device) {
-            status.setText("device connected : " + device);
+            status.setText("dispositivo conectado : " + device);
 //      deviceCombo.addItem(device);
         }
 
 //    @Override
         public void deviceDisconnected(Device device) {
-            status.setText("device disconnected : " + device);
+            status.setText("dispositivo desconectado : " + device);
 //      deviceCombo.removeItem(device);
         }
 
@@ -417,7 +417,7 @@ public class MorenaStudio extends JApplet {
             }
         }
         System.err.println("Configuration: native UI - " + nativeUI);
-        JFrame frame = new JFrame("Morena Studio");
+        JFrame frame = new JFrame("SysDoc");
 // -- Configuration settings      
         Configuration.setLogLevel(Level.ALL);
         Configuration.addDeviceType(".*fficejet.*", true);
