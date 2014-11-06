@@ -84,7 +84,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jButton8.setBackground(new java.awt.Color(255, 255, 255));
         jButton8.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/sysdoc/icones/logof.png"))); // NOI18N
-        jButton8.setText("Sair");
+        jButton8.setText("Logoff");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
