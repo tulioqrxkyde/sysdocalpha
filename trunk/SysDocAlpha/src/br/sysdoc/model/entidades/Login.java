@@ -19,11 +19,22 @@ public class Login implements Serializable {
     @GeneratedValue
     private int codLogin;
    
-    @Column
+    @Column(nullable = false)
     private String usuario;
     
-    @Column
+    @Column(nullable = false)
     private String senha;
+    
+    @Column
+    private boolean administrador;
+
+    public boolean isAdministrador() {
+        return administrador;
+    }
+
+    public void setAdministrador(boolean administrador) {
+        this.administrador = administrador;
+    }
 
     /**
      * @return the codLogin

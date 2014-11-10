@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Farley
  */
-public class FrmFuncionarios extends javax.swing.JFrame implements Comparable {
+public class FrmFuncionarios extends javax.swing.JFrame {
 
     List<Funcionario> listaFuncionarios;
     DefaultTableModel modelo;
@@ -217,22 +217,35 @@ public class FrmFuncionarios extends javax.swing.JFrame implements Comparable {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        for (Funcionario f : listaFuncionarios) {
-            if (f.getCpf().equals(jTable1.getValueAt(jTable1.getSelectedRow(), 1))) {
-                deletarFuncionarios(f);
-                dispose();
-                break;
+        if (jTable1.getSelectedRow() > -1) {
+            for (Funcionario f : listaFuncionarios) {
+                if (f.getCpf().equals(jTable1.getValueAt(jTable1.getSelectedRow(), 1))) {
+                    if (JOptionPane.showConfirmDialog(null, "Deseja Realmente excluir o Funcionário ? ", "Mensagem:",
+                            JOptionPane.WARNING_MESSAGE) == 0) {
+                        deletarFuncionarios(f);
+                        dispose();
+                    }
+                    break;
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhum funcionário selecionado.", "Alerta:",
+                    JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        for (Funcionario f : listaFuncionarios) {
-            if (f.getCpf().equals(jTable1.getValueAt(jTable1.getSelectedRow(), 1))) {
-                editarFuncionarios(f);
-                dispose();
-                break;
+        if (jTable1.getSelectedRow() > -1) {
+            for (Funcionario f : listaFuncionarios) {
+                if (f.getCpf().equals(jTable1.getValueAt(jTable1.getSelectedRow(), 1))) {
+                    editarFuncionarios(f);
+                    dispose();
+                    break;
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhum funcionário selecionado.", "Alerta:",
+                    JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -306,10 +319,4 @@ public class FrmFuncionarios extends javax.swing.JFrame implements Comparable {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public int compareTo(Object t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }

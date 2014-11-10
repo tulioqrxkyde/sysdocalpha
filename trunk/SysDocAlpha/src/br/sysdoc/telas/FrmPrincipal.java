@@ -1,10 +1,8 @@
 
 package br.sysdoc.telas;
 
+import br.sysdoc.model.entidades.Login;
 import br.sysdoc.morena.MorenaStudio;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,9 +14,19 @@ import java.util.logging.Logger;
 public class FrmPrincipal extends javax.swing.JFrame {
 
 
-    public FrmPrincipal() {
+    public FrmPrincipal(Login... login) {
         initComponents();
         setLocationRelativeTo(null);
+        tfUsuario.setVisible(false);
+        if(login != null) {
+            if(login.length > 0) {
+                tfUsuario.setVisible(true);
+                tfUsuario.setText(login[0].getUsuario());
+                if(login[0].isAdministrador()) {
+                    jMenu1.setVisible(false);
+                }
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -38,6 +46,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jlData = new javax.swing.JLabel();
         jlHora = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        tfUsuario = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -121,6 +130,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         jLabel2.setText("Versão: 0.1");
 
+        tfUsuario.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        tfUsuario.setText("Usuario");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -128,7 +140,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfUsuario))
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jlData, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -145,7 +160,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
                             .addComponent(jlHora, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jlData, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(tfUsuario))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)))
                 .addContainerGap())
@@ -305,14 +322,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel jlData;
     private javax.swing.JLabel jlHora;
+    private javax.swing.JLabel tfUsuario;
     private componentes.UJPanelImagem uJPanelImagem1;
     // End of variables declaration//GEN-END:variables
 
-    class hora implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-        Calendar now = Calendar.getInstance();
-        jlHora.setText(String.format("%1$tH:%1$tM:%1$tS",now));
-        }
-    }
 }

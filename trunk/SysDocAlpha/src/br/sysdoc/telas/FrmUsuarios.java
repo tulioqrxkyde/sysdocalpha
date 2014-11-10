@@ -170,10 +170,13 @@ public class FrmUsuarios extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (jTable1.getSelectedRow() > -1) {
-            deletarUsuarios();
-            dispose();
-            FrmUsuarios form = new FrmUsuarios();
-            form.setVisible(true);
+            if (JOptionPane.showConfirmDialog(null, "Deseja Realmente excluir o Usuário ? ", "Mensagem:",
+                    JOptionPane.WARNING_MESSAGE) == 0) {
+                deletarUsuarios();
+                dispose();
+                FrmUsuarios form = new FrmUsuarios();
+                form.setVisible(true);
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Selecione uma linha para realizar a exclusão.");
         }

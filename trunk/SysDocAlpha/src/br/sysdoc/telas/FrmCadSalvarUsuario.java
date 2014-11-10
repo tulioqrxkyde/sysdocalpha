@@ -24,9 +24,18 @@ public class FrmCadSalvarUsuario extends javax.swing.JFrame {
     }
 
     public void CadastrarUsuarios() {
+        if (txtCadUsuario.getText().isEmpty() || txtCadSenha.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "É necessário preencher ambos os campos.");
+            return;
+        }
         Login usuario = new Login();
         usuario.setUsuario(txtCadUsuario.getText());
         usuario.setSenha(new String(txtCadSenha.getText()));
+        if (chkAdm.isSelected()) {
+            usuario.setAdministrador(true);
+        } else {
+            usuario.setAdministrador(false);
+        }
         if (login != null) {
             usuario.setCodLogin(login.getCodLogin());
         }
@@ -34,11 +43,11 @@ public class FrmCadSalvarUsuario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Usuario já existente!", "Erro!", JOptionPane.INFORMATION_MESSAGE);
         } else {
             if (login != null) {
-                JOptionPane.showMessageDialog(null, "Usuario editado com Sucesso!", "Cadastrado com Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 DAO.editar(usuario);
+                JOptionPane.showMessageDialog(null, "Usuario editado com Sucesso!", "Cadastrado com Sucesso", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(null, "Usuario Cadastrado com Sucesso!", "Cadastrado com Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 DAO.salvar(usuario);
+                JOptionPane.showMessageDialog(null, "Usuario Cadastrado com Sucesso!", "Cadastrado com Sucesso", JOptionPane.INFORMATION_MESSAGE);
             }
         }
         new FrmUsuarios().setVisible(true);
@@ -56,6 +65,7 @@ public class FrmCadSalvarUsuario extends javax.swing.JFrame {
         txtCadSenha = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        chkAdm = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Novo Usuario");
@@ -94,26 +104,31 @@ public class FrmCadSalvarUsuario extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         jLabel2.setText("Senha:");
 
+        chkAdm.setBackground(new java.awt.Color(255, 255, 255));
+        chkAdm.setText("Administrador");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton3))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(23, 23, 23)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtCadUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addGap(29, 29, 29)
+                            .addComponent(txtCadSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(chkAdm))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(29, 29, 29)
-                        .addComponent(txtCadSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtCadUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jButton3)))
+                .addGap(29, 29, 29))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,12 +142,15 @@ public class FrmCadSalvarUsuario extends javax.swing.JFrame {
                     .addComponent(txtCadSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(chkAdm)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 150));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 190));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -188,6 +206,7 @@ public class FrmCadSalvarUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox chkAdm;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;

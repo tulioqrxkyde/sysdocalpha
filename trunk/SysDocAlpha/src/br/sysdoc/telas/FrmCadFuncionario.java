@@ -32,9 +32,9 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
     public FrmCadFuncionario(Funcionario functionary) {
         this();
         this.functionaryE = functionary;
-        jTextField2.setText(functionary.getName());
-        jFormattedTextField1.setText(functionary.getCpf());
-        jTextField4.setText(functionary.getAddress());
+        tfNome.setText(functionary.getName());
+        tfCpf.setText(functionary.getCpf());
+        tfEndereco.setText(functionary.getAddress());
     }
 
     /**
@@ -50,9 +50,9 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        tfNome = new javax.swing.JTextField();
+        tfEndereco = new javax.swing.JTextField();
+        tfCpf = new javax.swing.JFormattedTextField();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         labelCpf = new javax.swing.JLabel();
@@ -70,17 +70,22 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         jLabel3.setText("Endereço:");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        tfNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                tfNomeActionPerformed(evt);
             }
         });
 
         try {
-            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+            tfCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        tfCpf.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfCpfFocusLost(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/sysdoc/icones/accept.png"))); // NOI18N
@@ -119,10 +124,10 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                    .addComponent(jTextField2)
+                    .addComponent(tfEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                    .addComponent(tfNome)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(labelCpf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(99, 99, 99))
@@ -133,17 +138,17 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelCpf))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -165,62 +170,74 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void tfNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_tfNomeActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (!tfNome.getText().isEmpty() && !tfCpf.getText().replaceAll("\\D*", "").isEmpty() && !tfEndereco.getText().isEmpty()) {
+            if (!Util.CPF(tfCpf.getText().replaceAll("\\D*", ""))) {
+                labelCpf.setText("CPF inválido.");
+                labelCpf.setVisible(true);
+            } else {
+                GenericDAO dao = new GenericDAO();
 
-        if (!Util.CPF(jFormattedTextField1.getText().replaceAll("\\W*", ""))) {
-            labelCpf.setText("CPF inválido.");
-            labelCpf.setVisible(true);
-        } else {
-            GenericDAO dao = new GenericDAO();
+                if (!tfCpf.getText().isEmpty()) {
 
-            if (!jFormattedTextField1.getText().isEmpty()) {
+                    List<Funcionario> funcionarios = dao.list(new Funcionario());
 
-                List<Funcionario> funcionarios = dao.list(new Funcionario());
-
-                for (Funcionario func : funcionarios) {
-                    if (func.getCpf().equals((jFormattedTextField1.getText()))) {
-                        JOptionPane.showMessageDialog(null, "CPF já cadastrado.");
-                        return;
+                    for (Funcionario func : funcionarios) {
+                        if (func.getCpf().equals((tfCpf.getText())) && func.getId() == 0) {
+                            JOptionPane.showMessageDialog(null, "CPF já cadastrado.");
+                            return;
+                        }
                     }
                 }
+
+                PathFactory path = PathFactory.getInstance();
+
+                Folder folder = new Folder();
+                folder.setName(tfNome.getText());
+
+                Funcionario functionary = new Funcionario();
+                functionary.setName(tfNome.getText());
+                functionary.setCpf(tfCpf.getText());
+                functionary.setAddress(tfEndereco.getText());
+                folder.setFunctionary(functionary);
+                functionary.setFolder(folder);
+
+                if (functionaryE != null) {
+                    functionary.setId(functionaryE.getId());
+                    dao.update(functionary);
+                } else {
+                    dao.save(folder);
+                }
+
+                Path pathNew = path.newPath(path.getRoot() + PathFactory.getPATH_CONST() + folder.getName());
+                try {
+                    path.createPath(pathNew);
+                } catch (IOException ex) {
+                    Logger.getLogger(FrmFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                JOptionPane.showMessageDialog(null, "Funcionário " + ((functionary.getId() == 0) ? "cadastrado"
+                        : "atualizado") + "com sucesso.");
+                dispose();
             }
-
-            PathFactory path = PathFactory.getInstance();
-
-            Folder folder = new Folder();
-            folder.setName(jTextField2.getText());
-
-            Funcionario functionary = new Funcionario();
-            functionary.setName(jTextField2.getText());
-            functionary.setCpf(jFormattedTextField1.getText());
-            functionary.setAddress(jTextField4.getText());
-            folder.setFunctionary(functionary);
-            functionary.setFolder(folder);
-            
-             if(functionaryE != null) {
-                functionary.setId(functionaryE.getId());
-                dao.update(functionary);
-            }
-            dao.save(folder);
-
-            Path pathNew = path.newPath(path.getRoot() + PathFactory.getPATH_CONST() + folder.getName());
-            try {
-                path.createPath(pathNew);
-            } catch (IOException ex) {
-                Logger.getLogger(FrmFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso.");
-            dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "É necessário preencher todos os campos.");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void tfCpfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfCpfFocusLost
+        if (!Util.CPF(tfCpf.getText().replaceAll("\\W*", ""))) {
+            labelCpf.setText("CPF inválido.");
+            labelCpf.setVisible(true);
+        }
+    }//GEN-LAST:event_tfCpfFocusLost
 
     /**
      * @param args the command line arguments
@@ -261,13 +278,13 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JLabel labelCpf;
+    private javax.swing.JFormattedTextField tfCpf;
+    private javax.swing.JTextField tfEndereco;
+    private javax.swing.JTextField tfNome;
     // End of variables declaration//GEN-END:variables
 }

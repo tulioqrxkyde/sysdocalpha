@@ -1,6 +1,5 @@
 package br.sysdoc.telas;
 
-
 import br.sysdoc.model.entidades.Login;
 import br.sysdoc.model.entidades.DAO;
 import java.util.logging.Level;
@@ -13,6 +12,7 @@ import javax.swing.JOptionPane;
  */
 public class FrmLogin extends javax.swing.JFrame {
 
+    boolean tentativa;
 
     public FrmLogin() throws ClassNotFoundException {
         initComponents();
@@ -26,7 +26,7 @@ public class FrmLogin extends javax.swing.JFrame {
         usuario.setUsuario(txtUsuario.getText());
         usuario.setSenha(new String(ptxtSenha.getPassword()));
         if (!DAO.pesquisarUsuarios(usuario).isEmpty()) {
-            FrmPrincipal frm = new FrmPrincipal();
+            FrmPrincipal frm = new FrmPrincipal(usuario);
             frm.setVisible(true);
             dispose();
         } else {
@@ -54,6 +54,11 @@ public class FrmLogin extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jPanel1FocusGained(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         jLabel1.setText("Usuario:");
@@ -89,14 +94,29 @@ public class FrmLogin extends javax.swing.JFrame {
                 txtUsuarioActionPerformed(evt);
             }
         });
+        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyReleased(evt);
+            }
+        });
 
+        ptxtSenha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ptxtSenhaMouseClicked(evt);
+            }
+        });
         ptxtSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ptxtSenhaActionPerformed(evt);
             }
         });
+        ptxtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ptxtSenhaKeyReleased(evt);
+            }
+        });
 
-        uJPanelImagem1.setImagem(new java.io.File("C:\\Users\\Alison\\Desktop\\sysdocalpha\\SysDocAlpha\\src\\br\\sysdoc\\icones\\sysdoc.png"));
+        uJPanelImagem1.setImagem(new java.io.File("C:\\Users\\acer\\Desktop\\sysdocalpha2\\SysDocAlpha\\src\\br\\sysdoc\\icones\\sysdoc.png"));
 
         javax.swing.GroupLayout uJPanelImagem1Layout = new javax.swing.GroupLayout(uJPanelImagem1);
         uJPanelImagem1.setLayout(uJPanelImagem1Layout);
@@ -168,6 +188,7 @@ public class FrmLogin extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         Logar();
+        tentativa = true;
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -184,11 +205,36 @@ public class FrmLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1KeyPressed
 
+    private void ptxtSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ptxtSenhaMouseClicked
+        if (tentativa) {
+            ptxtSenha.setText("");
+            tentativa = false;
+        }
+    }//GEN-LAST:event_ptxtSenhaMouseClicked
+
+    private void txtUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyReleased
+        if (evt.getKeyCode() == 10) {
+            jButton1ActionPerformed(null);
+            jPanel1.requestFocus();
+        }
+    }//GEN-LAST:event_txtUsuarioKeyReleased
+
+    private void ptxtSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ptxtSenhaKeyReleased
+        if (evt.getKeyCode() == 10) {
+            jButton1ActionPerformed(null);
+            jPanel1.requestFocus();
+        }
+    }//GEN-LAST:event_ptxtSenhaKeyReleased
+
+    private void jPanel1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel1FocusGained
+
+    }//GEN-LAST:event_jPanel1FocusGained
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-       
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Metal".equals(info.getName())) {

@@ -18,6 +18,7 @@ package br.sysdoc.morena;
  * Requirements: 1. Java2 1.5 or newer 2. Morena7 for image acquisition
  *
  */
+import br.sysdoc.telas.FrmScannerSalvar;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -42,7 +43,6 @@ import java.util.logging.Level;
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.JApplet;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -207,25 +207,7 @@ public class MorenaStudio extends JApplet {
                 try {
                     status.setText("Processando ...");
                     BufferedImage bufferedImage = selected.getImage();
-                    JFileChooser chooser = new JFileChooser();
-                    String e[] = ImageIO.getWriterFormatNames();
-                    for (int i = 0; i < e.length; i++) {
-                        chooser.addChoosableFileFilter(new Filter(e[i]));
-                    }
-                    int result = chooser.showSaveDialog(MainPanel.this);
-                    if (result == JFileChooser.APPROVE_OPTION) {
-                        String ext = chooser.getFileFilter().getDescription();
-                        ext = ext.substring(0, ext.indexOf(' ')).toLowerCase();
-                        File file = chooser.getSelectedFile();
-                        String name = file.getName();
-                        if (!name.endsWith(ext)) {
-                            file = new File(file.getParentFile(), name + "." + ext);
-                        }
-                        ImageIO.write(bufferedImage, ext, file);
-                        status.setText("Pronto - Imagem salva como " + file + "  ...");
-                    } else {
-                        status.setText("Cancelado  ...");
-                    }
+                    new FrmScannerSalvar(bufferedImage).setVisible(true);
                 } catch (Throwable exception) {
                     JOptionPane.showMessageDialog(MainPanel.this, exception.toString(), "Error", JOptionPane.ERROR_MESSAGE);
                     exception.printStackTrace();
