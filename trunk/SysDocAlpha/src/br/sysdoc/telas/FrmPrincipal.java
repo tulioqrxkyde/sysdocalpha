@@ -1,4 +1,3 @@
-
 package br.sysdoc.telas;
 
 import br.sysdoc.model.entidades.Login;
@@ -22,7 +21,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             if(login.length > 0) {
                 tfUsuario.setVisible(true);
                 tfUsuario.setText(login[0].getUsuario());
-                if(login[0].isAdministrador()) {
+                if(!login[0].isAdministrador()) {
                     jMenu1.setVisible(false);
                 }
             }

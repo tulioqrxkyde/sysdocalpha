@@ -25,8 +25,9 @@ public class FrmLogin extends javax.swing.JFrame {
         Login usuario = new Login();
         usuario.setUsuario(txtUsuario.getText());
         usuario.setSenha(new String(ptxtSenha.getPassword()));
-        if (!DAO.pesquisarUsuarios(usuario).isEmpty()) {
-            FrmPrincipal frm = new FrmPrincipal(usuario);
+        Login usuarioTemp = DAO.pesquisarUsuarios(usuario);
+        if (usuarioTemp != null) {
+            FrmPrincipal frm = new FrmPrincipal(usuarioTemp);
             frm.setVisible(true);
             dispose();
         } else {
@@ -237,7 +238,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Metal".equals(info.getName())) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

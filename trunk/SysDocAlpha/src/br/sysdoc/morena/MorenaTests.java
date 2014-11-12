@@ -1,3 +1,5 @@
+package br.sysdoc.morena;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Arrays;

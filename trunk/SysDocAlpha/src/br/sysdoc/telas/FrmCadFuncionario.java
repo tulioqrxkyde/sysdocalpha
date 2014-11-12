@@ -3,6 +3,7 @@ package br.sysdoc.telas;
 import br.sysdoc.util.Util;
 import br.sysdoc.controller.GenericDAO;
 import br.sysdoc.factories.PathFactory;
+import br.sysdoc.model.entidades.DAO;
 import br.sysdoc.model.entidades.Funcionario;
 import br.sysdoc.model.path.directories.Folder;
 import java.io.IOException;
@@ -19,6 +20,7 @@ import javax.swing.JOptionPane;
 public class FrmCadFuncionario extends javax.swing.JFrame {
 
     Funcionario functionaryE;
+    List<Funcionario> funcionarios = DAO.listarFuncionarios();
 
     /**
      * Creates new form FrmFuncionario
@@ -81,9 +83,15 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        tfCpf.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
         tfCpf.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tfCpfFocusLost(evt);
+            }
+        });
+        tfCpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfCpfKeyReleased(evt);
             }
         });
 
@@ -175,21 +183,25 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_tfNomeActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if (!tfNome.getText().isEmpty() && !tfCpf.getText().replaceAll("\\D*", "").isEmpty() && !tfEndereco.getText().isEmpty()) {
-            if (!Util.CPF(tfCpf.getText().replaceAll("\\D*", ""))) {
+        if (!tfNome.getText().isEmpty() && !tfCpf.getText().replaceAll("\\D*", "").isEmpty()
+                && !tfEndereco.getText().isEmpty()) {
+            if (!Util.CPF(tfCpf.getText().replaceAll("\\W*", ""))) {
                 labelCpf.setText("CPF inválido.");
                 labelCpf.setVisible(true);
+                return;
             } else {
                 GenericDAO dao = new GenericDAO();
 
                 if (!tfCpf.getText().isEmpty()) {
 
-                    List<Funcionario> funcionarios = dao.list(new Funcionario());
-
                     for (Funcionario func : funcionarios) {
-                        if (func.getCpf().equals((tfCpf.getText())) && func.getId() == 0) {
-                            JOptionPane.showMessageDialog(null, "CPF já cadastrado.");
-                            return;
+                        if (functionaryE == null) {
+                            if (func.getCpf().equals(tfCpf.getText()) && func.getId() == 0) {
+                                JOptionPane.showMessageDialog(null, "CPF já cadastrado.");
+                            } else if (func.getCpf().equals((tfCpf.getText()))) {
+                                JOptionPane.showMessageDialog(null, "CPF já cadastrado.");
+                                return;
+                            }
                         }
                     }
                 }
@@ -197,19 +209,19 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
                 PathFactory path = PathFactory.getInstance();
 
                 Folder folder = new Folder();
-                folder.setName(tfNome.getText());
 
                 Funcionario functionary = new Funcionario();
                 functionary.setName(tfNome.getText());
                 functionary.setCpf(tfCpf.getText());
                 functionary.setAddress(tfEndereco.getText());
-                folder.setFunctionary(functionary);
-                functionary.setFolder(folder);
 
                 if (functionaryE != null) {
                     functionary.setId(functionaryE.getId());
                     dao.update(functionary);
                 } else {
+                    folder.setName(tfNome.getText());
+                    folder.setFunctionary(functionary);
+                    functionary.setFolder(folder);
                     dao.save(folder);
                 }
 
@@ -220,7 +232,7 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
                     Logger.getLogger(FrmFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 JOptionPane.showMessageDialog(null, "Funcionário " + ((functionary.getId() == 0) ? "cadastrado"
-                        : "atualizado") + "com sucesso.");
+                        : "atualizado") + " com sucesso.");
                 dispose();
             }
         } else {
@@ -233,11 +245,25 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void tfCpfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfCpfFocusLost
-        if (!Util.CPF(tfCpf.getText().replaceAll("\\W*", ""))) {
+        if (!tfCpf.getText().replaceAll("\\D*", "").isEmpty() && !Util.CPF(tfCpf.getText().replaceAll("\\D*", ""))) {
             labelCpf.setText("CPF inválido.");
             labelCpf.setVisible(true);
+        } else {
+            for (Funcionario func : funcionarios) {
+                if (func.getCpf().equals((tfCpf.getText()))) {
+                    labelCpf.setText("CPF já cadastrado.");
+                    labelCpf.setVisible(true);
+                    return;
+                }
+            }
         }
     }//GEN-LAST:event_tfCpfFocusLost
+
+    private void tfCpfKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCpfKeyReleased
+        if (tfCpf.getText().replaceAll("\\D*", "").isEmpty()) {
+            labelCpf.setVisible(false);
+        }
+    }//GEN-LAST:event_tfCpfKeyReleased
 
     /**
      * @param args the command line arguments
