@@ -25,7 +25,7 @@ public class Login implements Serializable {
     @Column(nullable = false)
     private String senha;
     
-    @Column
+    @Column(nullable = false)
     private boolean administrador;
 
     public boolean isAdministrador() {

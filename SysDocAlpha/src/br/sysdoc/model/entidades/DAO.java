@@ -36,11 +36,11 @@ public class DAO {
         sessao.close();
     }
 
-    public static List<Login> pesquisarUsuarios(Login u) {
+    public static Login pesquisarUsuarios(Login u) {
         Session sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction transacao = sessao.beginTransaction();
-        List<Login> logins = sessao.createCriteria(Login.class).add(Restrictions.ilike("usuario", u.getUsuario()))
-                .add(Restrictions.ilike("senha", u.getSenha())).list();
+        Login logins = (Login) sessao.createCriteria(Login.class).add(Restrictions.ilike("usuario", u.getUsuario()))
+                .add(Restrictions.ilike("senha", u.getSenha())).uniqueResult();
         sessao.close();
         return logins;
     }

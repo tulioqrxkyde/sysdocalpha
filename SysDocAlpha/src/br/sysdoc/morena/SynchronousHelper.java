@@ -1,3 +1,5 @@
+package br.sysdoc.morena;
+
 /*
  * Morena 7 - Image Acquisition Framework
  *

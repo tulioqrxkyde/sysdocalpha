@@ -39,7 +39,7 @@ public class FrmCadSalvarUsuario extends javax.swing.JFrame {
         if (login != null) {
             usuario.setCodLogin(login.getCodLogin());
         }
-        if (DAO.pesquisarUsuarios(usuario).size() > 0) {
+        if (DAO.pesquisarUsuarios(usuario) != null) {
             JOptionPane.showMessageDialog(null, "Usuario já existente!", "Erro!", JOptionPane.INFORMATION_MESSAGE);
         } else {
             if (login != null) {
