@@ -198,6 +198,7 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
                         if (functionaryE == null) {
                             if (func.getCpf().equals(tfCpf.getText()) && func.getId() == 0) {
                                 JOptionPane.showMessageDialog(null, "CPF já cadastrado.");
+                                return;
                             } else if (func.getCpf().equals((tfCpf.getText()))) {
                                 JOptionPane.showMessageDialog(null, "CPF já cadastrado.");
                                 return;
@@ -222,7 +223,7 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
                     folder.setName(tfNome.getText());
                     folder.setFunctionary(functionary);
                     functionary.setFolder(folder);
-                    dao.save(folder);
+                    dao.save(functionary);
                 }
 
                 Path pathNew = path.newPath(path.getRoot() + PathFactory.getPATH_CONST() + folder.getName());
@@ -231,7 +232,7 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
                 } catch (IOException ex) {
                     Logger.getLogger(FrmFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                JOptionPane.showMessageDialog(null, "Funcionário " + ((functionary.getId() == 0) ? "cadastrado"
+                JOptionPane.showMessageDialog(null, "Funcionário " + ((functionaryE == null) ? "cadastrado"
                         : "atualizado") + " com sucesso.");
                 dispose();
             }
