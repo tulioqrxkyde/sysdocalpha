@@ -8,15 +8,21 @@ package br.sysdoc.telas;
 import br.sysdoc.factories.PathFactory;
 import br.sysdoc.model.entidades.DAO;
 import br.sysdoc.model.entidades.Funcionario;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -42,16 +48,39 @@ public class FrmScannerSalvar extends javax.swing.JFrame {
             modelo.addRow(new String[]{func.getName(), func.getCpf()}
             );
         }
+        jComboBox1.setEnabled(false);
+        jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent lse) {
+                PathFactory path = PathFactory.getInstance();
+                Path pathNew = path.newPath(path.getRoot() + PathFactory.getPATH_CONST()
+                        + modelo.getValueAt(jTable1.getSelectedRow(), 0) + "/");
+                Stream<Path> paths = (Stream) Stream.builder().build();
+                try {
+                    if (pathNew != null) {
+                        paths = Files.list(pathNew);
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(FrmScannerSalvar.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                Iterator<Path> itr = paths.iterator();
+                jComboBox1.removeAllItems();
+                while (itr.hasNext()) {
+                    Path pathFolder = itr.next();
+                    if (!path.isFile(pathFolder)) {
+                        jComboBox1.addItem(pathFolder.getFileName());
+                    }
+                }
+                jComboBox1.setEnabled(true);
+            }
+        }
+        );
     }
 
     public FrmScannerSalvar(BufferedImage bfImage) {
         this();
         this.arquivo = bfImage;
-        modelo = (DefaultTableModel) jTable1.getModel();
-        for (Funcionario func : listaFuncionarios) {
-            modelo.addRow(new String[]{func.getName(), func.getCpf()}
-            );
-        }
+        jLabel1.setIcon(new ImageIcon(arquivo));
     }
 
     /**
@@ -139,7 +168,6 @@ public class FrmScannerSalvar extends javax.swing.JFrame {
         jPanel1.add(jLabel1);
         jLabel1.setBounds(437, 142, 90, 87);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ficha Financeira", "Documentos Pessoais", "??????" }));
         jPanel1.add(jComboBox1);
         jComboBox1.setBounds(437, 290, 92, 22);
 
@@ -151,7 +179,7 @@ public class FrmScannerSalvar extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
         );
 
         pack();
@@ -170,22 +198,19 @@ public class FrmScannerSalvar extends javax.swing.JFrame {
          existem para ir adicionando sequência 1,2,3...*/
         // Path pathNew = Paths.get("C:/teste/teste.txt");
 
-        String s = path.getRoot() + PathFactory.getPATH_CONST()
-                + jTable1.getValueAt(jTable1.getSelectedRow(), jTable1.getSelectedColumn())
-                + "/" + jTable1.getValueAt(jTable1.getSelectedRow(), jTable1.getSelectedColumn()) + "_" + tfNome.getText()+".jpg";
+        int index = jComboBox1.getSelectedIndex();
+        String folder = jTable1.getValueAt(jTable1.getSelectedRow(),
+                jTable1.getSelectedColumn()).toString();
 
-        String s2 = s.replaceAll("[/\\\\]", "/");
+        StringBuilder sb = new StringBuilder(
+                path.getRoot() + PathFactory.getPATH_CONST()
+                + folder + "/" + jComboBox1.getSelectedItem()).append("/");
+
+        String s2 = sb.toString().replaceAll("[/\\\\]", "/");
 
         Path pathNew = path.newPath(s2);
-        Iterator<Path> it
-                = pathNew.getFileSystem().getRootDirectories().iterator();
-
-        int size = 0;
-        while (it.hasNext()) {
-            it.next();
-            size++;
-        }
-        System.out.println("Quantidade de arquivos: " + (size - 2));
+        sb.append(!tfNome.getText().isEmpty() ? tfNome.getText()
+                : path.countFilesInFolder(pathNew));
 
         try {
             path.createPath(pathNew);
@@ -193,7 +218,6 @@ public class FrmScannerSalvar extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(FrmScannerSalvar.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //     }
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -1,4 +1,3 @@
-
 package br.sysdoc.factories;
 
 import java.io.IOException;
@@ -7,12 +6,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.HashSet;
 import java.util.Iterator;
-
+import java.util.Set;
 
 public class PathFactory {
 
     private static final String PATH_CONST = "sysdoc/";
+    private static final String PATH_FINANCE = "ficha_financeira/";
+    private static final String PATH_DOCUMENTS = "documentos_pessoais/";
     private Path path;
 
     private PathFactory() {
@@ -71,6 +73,26 @@ public class PathFactory {
         return false;
     }
 
+    public int countFilesInFolder(Path path) {
+        Iterator<Path> it = path.getFileSystem().getRootDirectories().iterator();
+
+        int size = 0;
+        while (it.hasNext()) {
+            it.next();
+            size++;
+        }
+        return size - 2;
+    }
+    
+    public Set<Path> getFiles(Path path) {
+        Iterator<Path> it = path.getFileSystem().getRootDirectories().iterator();
+        Set<Path> files = new HashSet<>();
+        while(it.hasNext()) {
+            files.add(it.next());
+        }
+        return files;
+    }
+
     /**
      * @return the PATH_CONST
      */
@@ -78,4 +100,17 @@ public class PathFactory {
         return PATH_CONST;
     }
 
+    /**
+     * @return the PATH_FINANCE
+     */
+    public static String getPATH_FINANCE() {
+        return PATH_FINANCE;
+    }
+
+    /**
+     * @return the PATH_DOCUMENTS
+     */
+    public static String getPATH_DOCUMENTS() {
+        return PATH_DOCUMENTS;
+    }
 }

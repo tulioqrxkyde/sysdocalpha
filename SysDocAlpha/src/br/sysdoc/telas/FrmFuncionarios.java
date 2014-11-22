@@ -56,10 +56,6 @@ public class FrmFuncionarios extends javax.swing.JFrame {
         telaFuncionario.setVisible(true);
     }
 
-    public void atualizarTabela() {
-        modelo.fireTableDataChanged();
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

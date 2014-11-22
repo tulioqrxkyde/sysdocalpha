@@ -226,9 +226,12 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
                     dao.save(functionary);
                 }
 
-                Path pathNew = path.newPath(path.getRoot() + PathFactory.getPATH_CONST() + folder.getName());
+                Path pathNew = path.newPath(path.getRoot() + PathFactory.getPATH_CONST()
+                        + folder.getName());
                 try {
                     path.createPath(pathNew);
+                    path.createPath(path.newPath(pathNew.toString().concat("/"+PathFactory.getPATH_DOCUMENTS())));
+                    path.createPath(path.newPath(pathNew.toString().concat("/"+PathFactory.getPATH_FINANCE())));
                 } catch (IOException ex) {
                     Logger.getLogger(FrmFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
                 }
