@@ -7,12 +7,14 @@ package br.sysdoc.telas;
 
 import br.sysdoc.factories.PathFactory;
 import java.awt.Desktop;
+import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -29,12 +31,13 @@ import javax.swing.SwingConstants;
  */
 public class FrmFiles extends javax.swing.JFrame implements MouseListener {
 
-    List<String> labelsNames = new ArrayList<>();
-    List<JLabel> labels = new ArrayList<>();
+    List<String> labelsNames;
+    List<JLabel> labels;
     JLabel label = new JLabel();
     int x = 10, y = 5;
     List<File> file;
     String[] types = {"jpg", "png", "gif"};
+    Path path;
 
     /**
      * Creates new form FrmFiles
@@ -43,28 +46,47 @@ public class FrmFiles extends javax.swing.JFrame implements MouseListener {
         initComponents();
 // TODO LER TODOS OS ARQUIVOS E EXIBIR COMO MINIATURAS
         //  PathFactory factory = P
-
     }
 
     public FrmFiles(Path path) {
         this();
+        this.path = path;
+        file = new ArrayList<>();
+        createFileExplorer(path);
+    }
+
+    public void createFileExplorer(Path path) {
+        this.path = path;
+        labels = new ArrayList<>();
+        labelsNames = new ArrayList<>();
         file = new ArrayList<>();
         Stream<Path> paths = (Stream) Stream.builder().build();
         try {
-            paths = Files.list(path);
-
+            int size = (int) Files.list(path).count();
+            if (size > 0) {
+                paths = Files.list(path);
+            }
         } catch (IOException ex) {
             Logger.getLogger(FrmFiles.class.getName()).log(Level.SEVERE, null, ex);
         }
         Iterator<Path> itr = paths.iterator();
-        int count = 0;
+        int count = 0, countFileInLines = 0;
         PathFactory pathFactory = PathFactory.getInstance();
         while (itr.hasNext()) {
             label = new JLabel();
             label.addMouseListener(this);
             Path pathReceived = itr.next();
-            if (count >= 10) {
-                y += 30;
+            if (count == 7) {
+                x = 10;
+                y += 90;
+                count = 0;
+                countFileInLines++;
+            }
+            if (countFileInLines > 0) {
+                jPanel1.setSize(jPanel1.getWidth(), jPanel1.getHeight() + 86);
+                jPanel1.setPreferredSize(new Dimension(jPanel1.getWidth(),
+                        jPanel1.getHeight()));
+                countFileInLines = 0;
             }
             if (pathReceived != null) {
                 if (pathFactory.isFile(pathReceived)) {
@@ -75,10 +97,11 @@ public class FrmFiles extends javax.swing.JFrame implements MouseListener {
                         label.setIcon(new ImageIcon(getClass()
                                 .getResource("/br/sysdoc/icones/imagem_icon.png")));
                         String txt = pathReceived.getFileName().toString();
-                        if (txt.length() >= 10) {
-                            label.setText(txt.substring(0, 9) + "...");
+                        if (txt.length() >= 12) {
+                            label.setText(txt.substring(0, 11) + "...");
+                        } else {
+                            label.setText(pathReceived.getFileName().toString());
                         }
-                        label.setText(pathReceived.getFileName().toString());
                         label.setHorizontalTextPosition(SwingConstants.CENTER);
                         label.setVerticalTextPosition(SwingConstants.BOTTOM);
                         labelsNames.add("jpg");
@@ -89,13 +112,15 @@ public class FrmFiles extends javax.swing.JFrame implements MouseListener {
                     label.setBounds(x, y, 100, 100);
                     label.setIcon(new ImageIcon(getClass()
                             .getResource("/br/sysdoc/icones/imagem_folder_icon.png")));
-                    String txt = pathReceived.getFileName().toString();
-                    if (txt.length() >= 10) {
-                        label.setText(txt.substring(0, 9) + "...");
+                    String name = pathReceived.getFileName().toString();
+                    if (name.length() >= 12) {
+                        label.setText(name.substring(0, 11) + "...");
+                    } else {
+                        label.setText(pathReceived.getFileName().toString());
                     }
                     label.setHorizontalTextPosition(SwingConstants.CENTER);
                     label.setVerticalTextPosition(SwingConstants.BOTTOM);
-                    labelsNames.add("folder" + count);
+                    labelsNames.add(name);
                     labels.add(label);
                     file.add(pathReceived.toFile());
                 }
@@ -104,6 +129,8 @@ public class FrmFiles extends javax.swing.JFrame implements MouseListener {
             x += 80;
             jPanel1.add(label);
         }
+        x = 10;
+        y = 15;
     }
 
     /**
@@ -119,15 +146,18 @@ public class FrmFiles extends javax.swing.JFrame implements MouseListener {
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Sysdoc - File Explorer");
         setResizable(false);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(702, 455));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -137,7 +167,7 @@ public class FrmFiles extends javax.swing.JFrame implements MouseListener {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 421, Short.MAX_VALUE)
+            .addGap(0, 455, Short.MAX_VALUE)
         );
 
         jScrollPane1.setViewportView(jPanel1);
@@ -150,7 +180,9 @@ public class FrmFiles extends javax.swing.JFrame implements MouseListener {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -167,6 +199,7 @@ public class FrmFiles extends javax.swing.JFrame implements MouseListener {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -217,10 +250,20 @@ public class FrmFiles extends javax.swing.JFrame implements MouseListener {
     @Override
     public void mousePressed(MouseEvent me) {
         Iterator<String> iterator = labelsNames.iterator();
+        String name = "";
         try {
-            for (int x = 0; iterator.hasNext(); x++, iterator.next()) {
+            for (int x = 0; iterator.hasNext(); x++) {
+                name = iterator.next();
                 if (me.getSource().equals(labels.get(x))) {
-                    Desktop.getDesktop().open(file.get(x));
+                    if (me.getClickCount() > 1) {
+                        if (name.endsWith(types[0]) || name.endsWith(types[1])
+                                || name.endsWith(types[2])) {
+                            Desktop.getDesktop().open(file.get(x));
+                        } else {
+                            openFolder(this.path.toString().concat("/").concat(name));
+                        }
+                        break;
+                    }
                 }
             }
         } catch (IOException ex) {
@@ -238,5 +281,14 @@ public class FrmFiles extends javax.swing.JFrame implements MouseListener {
 
     @Override
     public void mouseExited(MouseEvent me) {
+    }
+
+    public void openFolder(String folderName) {
+        jPanel1.removeAll();
+        jPanel1.setSize(jPanel1.getWidth(), jPanel1.getHeight() - 8600);
+        jPanel1.setPreferredSize(new Dimension(jPanel1.getWidth(),
+                jPanel1.getHeight()));
+        String temp = folderName.replaceAll("[/\\\\]", "/");
+        createFileExplorer(Paths.get(temp));
     }
 }

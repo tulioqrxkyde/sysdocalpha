@@ -64,7 +64,6 @@ public class FrmScannerSalvar extends javax.swing.JFrame {
                     Logger.getLogger(FrmScannerSalvar.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 Iterator<Path> itr = paths.iterator();
-                jComboBox1.removeAllItems();
                 while (itr.hasNext()) {
                     Path pathFolder = itr.next();
                     if (!path.isFile(pathFolder)) {
@@ -168,6 +167,7 @@ public class FrmScannerSalvar extends javax.swing.JFrame {
         jPanel1.add(jLabel1);
         jLabel1.setBounds(437, 142, 90, 87);
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Raíz" }));
         jPanel1.add(jComboBox1);
         jComboBox1.setBounds(437, 290, 92, 22);
 
@@ -199,20 +199,27 @@ public class FrmScannerSalvar extends javax.swing.JFrame {
         // Path pathNew = Paths.get("C:/teste/teste.txt");
 
         int index = jComboBox1.getSelectedIndex();
-        String folder = jTable1.getValueAt(jTable1.getSelectedRow(),
-                jTable1.getSelectedColumn()).toString();
+        StringBuilder sb;
+        if (index == 0) {
+            sb = new StringBuilder(path.getRoot()
+                    + PathFactory.getPATH_CONST()
+                    + jTable1.getValueAt(jTable1.getSelectedRow(),
+                            jTable1.getSelectedColumn()).toString() + "/");
+        } else {
+            String folder = jTable1.getValueAt(jTable1.getSelectedRow(),
+                    jTable1.getSelectedColumn()).toString();
 
-        StringBuilder sb = new StringBuilder(
-                path.getRoot() + PathFactory.getPATH_CONST()
-                + folder + "/" + jComboBox1.getSelectedItem()).append("/");
-
+            sb = new StringBuilder(
+                    path.getRoot() + PathFactory.getPATH_CONST()
+                    + folder + "/" + jComboBox1.getSelectedItem()).append("/");
+        }
         String s2 = sb.toString().replaceAll("[/\\\\]", "/");
-
         Path pathNew = path.newPath(s2);
         sb.append(!tfNome.getText().isEmpty() ? tfNome.getText()
                 : path.countFilesInFolder(pathNew));
-
+        s2 = sb.toString().replaceAll("[/\\\\]", "/");
         try {
+            pathNew = path.newPath(sb.toString());
             path.createPath(pathNew);
             ImageIO.write(arquivo, "jpg", pathNew.toFile());
         } catch (IOException ex) {
