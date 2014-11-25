@@ -36,6 +36,7 @@ public class FrmFiles extends javax.swing.JFrame implements MouseListener {
     List<String> labelsNames;
     List<JLabel> labels;
     JLabel label = new JLabel();
+    JLabel clicked;
     int x = 10, y = 5, countPathsLast, countPathsNext;
     List<File> file;
     String[] types = {"jpg", "png", "gif"};
@@ -187,6 +188,7 @@ public class FrmFiles extends javax.swing.JFrame implements MouseListener {
 
         jScrollPane1.setViewportView(jPanel1);
 
+        jButton2.setText("Abrir");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -219,7 +221,7 @@ public class FrmFiles extends javax.swing.JFrame implements MouseListener {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23))
         );
@@ -271,7 +273,11 @@ public class FrmFiles extends javax.swing.JFrame implements MouseListener {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
+        try {
+            open();
+        } catch (IOException ex) {
+            Logger.getLogger(FrmFiles.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -338,30 +344,13 @@ public class FrmFiles extends javax.swing.JFrame implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent me) {
-        Iterator<String> iterator = labelsNames.iterator();
-        String name = "";
-        try {
-            for (int k = 0; iterator.hasNext(); k++) {
-                name = iterator.next();
-                if (me.getSource().equals(labels.get(k))) {
-                    if (me.getClickCount() > 1) {
-                        if (name.endsWith(types[0]) || name.endsWith(types[1])
-                                || name.endsWith(types[2])) {
-                            Desktop.getDesktop().open(file.get(k));
-                        } else {
-                            if (!lastPaths.contains(path)) {
-                                lastPaths.add(path);
-                            }
-                            countPathsLast++;
-                            jButton3.setEnabled(true);
-                            openFolder(path.toString().concat("/").concat(name));
-                        }
-                        break;
-                    }
-                }
+        clicked = (JLabel) me.getSource();
+        if (me.getClickCount() > 1) {
+            try {
+                open();
+            } catch (IOException ex) {
+                Logger.getLogger(FrmFiles.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (IOException ex) {
-            Logger.getLogger(FrmFiles.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -375,6 +364,22 @@ public class FrmFiles extends javax.swing.JFrame implements MouseListener {
 
     @Override
     public void mouseExited(MouseEvent me) {
+    }
+
+    public void open() throws IOException {
+        int index = labels.indexOf(clicked);
+        String name = labelsNames.get(index);
+        if (name.endsWith(types[0]) || name.endsWith(types[1])
+                || name.endsWith(types[2])) {
+            Desktop.getDesktop().open(file.get(index));
+        } else {
+            if (!lastPaths.contains(path)) {
+                lastPaths.add(path);
+            }
+            countPathsLast++;
+            jButton3.setEnabled(true);
+            openFolder(path.toString().concat("/").concat(name));
+        }
     }
 
     public void openFolder(String folderName) {
