@@ -49,7 +49,7 @@ public class FrmLogin extends javax.swing.JFrame {
         uJPanelImagem1 = new componentes.UJPanelImagem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Login");
+        setTitle("SysDoc - Login");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

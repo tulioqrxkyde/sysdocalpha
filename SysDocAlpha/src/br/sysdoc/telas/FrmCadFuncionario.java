@@ -59,7 +59,8 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         labelCpf = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("SysDoc - Cadastro de Usuário");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -232,6 +233,7 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
                     path.createPath(pathNew);
                     path.createPath(path.newPath(pathNew.toString().concat("/"+PathFactory.getPATH_DOCUMENTS())));
                     path.createPath(path.newPath(pathNew.toString().concat("/"+PathFactory.getPATH_FINANCE())));
+                    path.createPath(path.newPath(pathNew.toString().concat("/"+PathFactory.getPATH_OTHERS())));
                 } catch (IOException ex) {
                     Logger.getLogger(FrmFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
                 }

@@ -55,6 +55,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenuItem2.setText("jMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("SysDoc - Gerênciamento Eletrônico de Documentos");
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
 
@@ -87,6 +88,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jButton7.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/sysdoc/icones/search.png"))); // NOI18N
         jButton7.setText("Pesquisar");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton7);
 
         jButton8.setBackground(new java.awt.Color(255, 255, 255));
@@ -267,6 +273,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         new MorenaStudio().main(s);
        
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        new FrmPesquisar().setVisible(true);
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -68,7 +68,7 @@ public class FrmCadSalvarUsuario extends javax.swing.JFrame {
         chkAdm = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Novo Usuario");
+        setTitle("SysDoc - Gerência de Usuários");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

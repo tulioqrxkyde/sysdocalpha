@@ -15,6 +15,15 @@ public class PathFactory {
     private static final String PATH_CONST = "sysdoc/";
     private static final String PATH_FINANCE = "ficha_financeira/";
     private static final String PATH_DOCUMENTS = "documentos_pessoais/";
+    private static final String PATH_OTHERS = "outros/";
+
+    public Path getPath() {
+        return path;
+    }
+
+    public void setPath(Path path) {
+        this.path = path;
+    }
     private Path path;
 
     private PathFactory() {
@@ -83,11 +92,11 @@ public class PathFactory {
         }
         return size - 2;
     }
-    
+
     public Set<Path> getFiles(Path path) {
         Iterator<Path> it = path.getFileSystem().getRootDirectories().iterator();
         Set<Path> files = new HashSet<>();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             files.add(it.next());
         }
         return files;
@@ -112,5 +121,9 @@ public class PathFactory {
      */
     public static String getPATH_DOCUMENTS() {
         return PATH_DOCUMENTS;
+    }
+
+    public static String getPATH_OTHERS() {
+        return PATH_OTHERS;
     }
 }
