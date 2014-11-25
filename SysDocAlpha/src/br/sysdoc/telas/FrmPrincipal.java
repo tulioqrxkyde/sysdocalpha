@@ -109,7 +109,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         uJPanelImagem1.setBackground(new java.awt.Color(255, 255, 255));
-        uJPanelImagem1.setImagem(new java.io.File("C:\\Users\\Alison\\Desktop\\sysdocalpha\\SysDocAlpha\\src\\br\\sysdoc\\icones\\sysdoc.png"));
+        uJPanelImagem1.setImagem(new java.io.File("D:\\sysdoc\\SysDocAlpha\\src\\br\\sysdoc\\icones\\sysdoc.png"));
 
         javax.swing.GroupLayout uJPanelImagem1Layout = new javax.swing.GroupLayout(uJPanelImagem1);
         uJPanelImagem1.setLayout(uJPanelImagem1Layout);
@@ -211,7 +211,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         jMenu3.setText("Opções");
 
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/sysdoc/icones/cancel.png"))); // NOI18N
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/sysdoc/icones/log Out.png"))); // NOI18N
         jMenuItem3.setText("Sair");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
