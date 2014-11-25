@@ -417,7 +417,7 @@ public class MorenaStudio extends JApplet {
             }
         }
         System.err.println("Configuration: native UI - " + nativeUI);
-        JFrame frame = new JFrame("SysDoc");
+        JFrame frame = new JFrame("SysDoc - Virtualização de Documento");
 // -- Configuration settings      
         Configuration.setLogLevel(Level.ALL);
         Configuration.addDeviceType(".*fficejet.*", true);
