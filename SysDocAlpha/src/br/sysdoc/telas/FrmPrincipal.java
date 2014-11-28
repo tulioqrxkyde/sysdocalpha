@@ -109,7 +109,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         uJPanelImagem1.setBackground(new java.awt.Color(255, 255, 255));
-        uJPanelImagem1.setImagem(new java.io.File("D:\\sysdoc\\SysDocAlpha\\src\\br\\sysdoc\\icones\\sysdoc.png"));
+        uJPanelImagem1.setImagem(new java.io.File("C:\\Users\\Magno\\Desktop\\sysdocalpha\\SysDocAlpha\\src\\br\\sysdoc\\icones\\sysdoc.png"));
 
         javax.swing.GroupLayout uJPanelImagem1Layout = new javax.swing.GroupLayout(uJPanelImagem1);
         uJPanelImagem1.setLayout(uJPanelImagem1Layout);

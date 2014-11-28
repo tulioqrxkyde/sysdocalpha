@@ -40,14 +40,14 @@ public class FrmCadSalvarUsuario extends javax.swing.JFrame {
             usuario.setCodLogin(login.getCodLogin());
         }
         if (DAO.pesquisarUsuarios(usuario) != null) {
-            JOptionPane.showMessageDialog(null, "Usuario já existente!", "Erro!", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Usuário já existente!", "Erro!", JOptionPane.INFORMATION_MESSAGE);
         } else {
             if (login != null) {
                 DAO.editar(usuario);
-                JOptionPane.showMessageDialog(null, "Usuario editado com Sucesso!", "Cadastrado com Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Usuário editado com Sucesso!", "Cadastrado com Sucesso", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 DAO.salvar(usuario);
-                JOptionPane.showMessageDialog(null, "Usuario Cadastrado com Sucesso!", "Cadastrado com Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Usuário Cadastrado com Sucesso!", "Cadastrado com Sucesso", JOptionPane.INFORMATION_MESSAGE);
             }
         }
         new FrmUsuarios().setVisible(true);
