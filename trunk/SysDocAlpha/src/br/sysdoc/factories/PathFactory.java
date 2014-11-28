@@ -1,6 +1,7 @@
 package br.sysdoc.factories;
 
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,10 +13,10 @@ import java.util.Set;
 
 public class PathFactory {
 
-    private static final String PATH_CONST = "sysdoc/";
-    private static final String PATH_FINANCE = "ficha_financeira/";
-    private static final String PATH_DOCUMENTS = "documentos_pessoais/";
-    private static final String PATH_OTHERS = "outros/";
+    private static final String PATH_CONST = "/sysdoc/";
+    private static final String PATH_FINANCE = "/ficha financeira/";
+    private static final String PATH_DOCUMENTS = "/documentos pessoais/";
+    private static final String PATH_OTHERS = "/outros/";
 
     public Path getPath() {
         return path;
@@ -52,11 +53,10 @@ public class PathFactory {
             Iterator<Path> it = Files.newDirectoryStream(path).iterator();
             while (it.hasNext()) {
                 Path pathItr = it.next();
-                System.out.println(pathItr);
-                Files.deleteIfExists(pathItr);
+                Files.delete(pathItr);
             }
         }
-        Files.deleteIfExists(path);
+        Files.delete(path);
     }
 
     public void copyPath(Path pathSource, Path pathTarget) throws IOException {

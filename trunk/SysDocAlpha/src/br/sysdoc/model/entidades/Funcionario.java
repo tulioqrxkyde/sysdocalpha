@@ -31,6 +31,9 @@ public class Funcionario implements Serializable {
 
     @Column(length = 70)
     private String address;
+    
+    @Column(length = 15)
+    private String telephone;
 
     @OneToOne(mappedBy = "functionary", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Folder folder;
@@ -127,10 +130,24 @@ public class Funcionario implements Serializable {
     public void setFolder(Folder folder) {
         this.folder = folder;
     }
-
+    
     @Override
     public String toString() {
         return "Nome: " + name + " - CPF:" + cpf;
+    }
+
+    /**
+     * @return the telephone
+     */
+    public String getTelephone() {
+        return telephone;
+    }
+
+    /**
+     * @param telephone the telephone to set
+     */
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
 }

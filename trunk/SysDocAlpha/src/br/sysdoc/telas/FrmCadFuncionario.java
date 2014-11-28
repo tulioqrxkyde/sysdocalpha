@@ -7,7 +7,10 @@ import br.sysdoc.model.entidades.DAO;
 import br.sysdoc.model.entidades.Funcionario;
 import br.sysdoc.model.path.directories.Folder;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -58,6 +61,8 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         labelCpf = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        tfTelefone = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SysDoc - Cadastro de Usuário");
@@ -118,27 +123,45 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
         labelCpf.setForeground(new java.awt.Color(255, 0, 51));
         labelCpf.setText("jLabel4");
 
+        jLabel4.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jLabel4.setText("Telefone:");
+
+        try {
+            tfTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
+                        .addGap(59, 59, 59)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton3))
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(tfEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                    .addComponent(tfNome)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(labelCpf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(39, 39, 39)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(198, 198, 198))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3)
+                                .addComponent(tfEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                                .addComponent(tfNome)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(labelCpf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(tfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(99, 99, 99))
         );
         jPanel1Layout.setVerticalGroup(
@@ -158,11 +181,15 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -185,7 +212,7 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (!tfNome.getText().isEmpty() && !tfCpf.getText().replaceAll("\\D*", "").isEmpty()
-                && !tfEndereco.getText().isEmpty()) {
+                && !tfEndereco.getText().isEmpty() && !tfTelefone.getText().replaceAll("\\D*", "").isEmpty()) {
             if (!Util.CPF(tfCpf.getText().replaceAll("\\W*", ""))) {
                 labelCpf.setText("CPF inválido.");
                 labelCpf.setVisible(true);
@@ -216,6 +243,7 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
                 functionary.setName(tfNome.getText());
                 functionary.setCpf(tfCpf.getText());
                 functionary.setAddress(tfEndereco.getText());
+                functionary.setTelephone(tfTelefone.getText());
 
                 if (functionaryE != null) {
                     functionary.setId(functionaryE.getId());
@@ -231,9 +259,15 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
                         + folder.getName());
                 try {
                     path.createPath(pathNew);
-                    path.createPath(path.newPath(pathNew.toString().concat("/"+PathFactory.getPATH_DOCUMENTS())));
-                    path.createPath(path.newPath(pathNew.toString().concat("/"+PathFactory.getPATH_FINANCE())));
-                    path.createPath(path.newPath(pathNew.toString().concat("/"+PathFactory.getPATH_OTHERS())));
+                    Path documents = path.newPath(pathNew.toString().concat(PathFactory.getPATH_DOCUMENTS()));
+                    Path finance = path.newPath(pathNew.toString().concat(PathFactory.getPATH_FINANCE()));
+                    Path others = path.newPath(pathNew.toString().concat(PathFactory.getPATH_OTHERS()));
+                    path.createPath(documents);
+                    path.createPath(finance);
+                    path.createPath(others);
+                    Files.setAttribute(Paths.get(documents.toString()), "dos:hidden", Boolean.TRUE, LinkOption.NOFOLLOW_LINKS);
+                    Files.setAttribute(Paths.get(finance.toString()), "dos:hidden", Boolean.TRUE, LinkOption.NOFOLLOW_LINKS);
+                    Files.setAttribute(Paths.get(others.toString()), "dos:hidden", Boolean.TRUE, LinkOption.NOFOLLOW_LINKS);
                 } catch (IOException ex) {
                     Logger.getLogger(FrmFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -313,10 +347,12 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelCpf;
     private javax.swing.JFormattedTextField tfCpf;
     private javax.swing.JTextField tfEndereco;
     private javax.swing.JTextField tfNome;
+    private javax.swing.JFormattedTextField tfTelefone;
     // End of variables declaration//GEN-END:variables
 }

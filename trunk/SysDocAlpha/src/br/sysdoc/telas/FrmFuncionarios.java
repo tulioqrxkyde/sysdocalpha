@@ -42,7 +42,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
 
         try {
             path.deletePath(path.newPath(path.getRoot() + PathFactory.getPATH_CONST() + functionary.getName()));
-
+            
         } catch (IOException ex) {
             Logger.getLogger(FrmFuncionarios.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -219,7 +219,6 @@ public class FrmFuncionarios extends javax.swing.JFrame {
                     if (JOptionPane.showConfirmDialog(null, "Deseja Realmente excluir o Funcionário ? ", "Mensagem:",
                             JOptionPane.WARNING_MESSAGE) == 0) {
                         deletarFuncionarios(f);
-                        dispose();
                     }
                     break;
                 }

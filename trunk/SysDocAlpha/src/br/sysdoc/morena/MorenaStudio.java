@@ -65,7 +65,7 @@ public class MorenaStudio extends JApplet {
     static private Manager manager;
     
     static {
-        System.err.println("MorenaStudio started at " + (new Date()));
+        System.err.println("MorenaStudio iniciado em " + (new Date()));
     }
     
     public static class MainPanel extends JPanel implements DeviceListChangeListener {
@@ -141,10 +141,10 @@ public class MorenaStudio extends JApplet {
                         select(imagePanel);
                         int size = (int) Math.round(Math.sqrt(getComponentCount()));
                         setLayout(new GridLayout(size, size));
-                        status.setText("Done [" + file.getAbsolutePath() + "]...");
+                        status.setText("Concluído [" + file.getAbsolutePath() + "]...");
                         validate();
                     } else {
-                        status.setText("Done [" + file.getAbsolutePath() + "] - can not display this image type");
+                        status.setText("Concluído [" + file.getAbsolutePath() + "] - não é possível exibir esse tipo de imagem");
                     }
                 } catch (Exception exception) {
                     exception.printStackTrace();
@@ -240,7 +240,7 @@ public class MorenaStudio extends JApplet {
                     tmp.close();
                     int contentLength = tmp.size();
                     if (contentLength > 1024 * 1024) {
-                        throw new Exception("Image is too big to upload");
+                        throw new Exception("Imagem é muito grande para se fazer upload");
                     }
                     URL uploadURL = new URL(documentBase, "upload.php");
                     HttpURLConnection connection = (HttpURLConnection) uploadURL.openConnection();
@@ -260,11 +260,11 @@ public class MorenaStudio extends JApplet {
                     }
                     in.close();
                     URL imageURL = new URL(documentBase, connection.getHeaderField("file-name"));
-                    status.setText("Done - image is uploaded to " + imageURL + " (for at least 5 minutes) ...");
+                    status.setText("Concluído - imagem carregada " + imageURL + " (para no minímo 5 minutos) ...");
                 } catch (Throwable exception) {
                     JOptionPane.showMessageDialog(MainPanel.this, exception.toString(), "Error", JOptionPane.ERROR_MESSAGE);
                     exception.printStackTrace();
-                    status.setText("Failed, try again ...");
+                    status.setText("Falha, tente novamente ...");
                 }
             }
             
@@ -401,7 +401,7 @@ public class MorenaStudio extends JApplet {
     
     @Override
     public void start() {
-        System.err.println("Morena is available " + manager.available());
+        System.err.println("Morena está disponível " + manager.available());
     }
     
     @Override
@@ -416,7 +416,7 @@ public class MorenaStudio extends JApplet {
                 nativeUI = Boolean.parseBoolean(args[0]);
             }
         }
-        System.err.println("Configuration: native UI - " + nativeUI);
+        System.err.println("Configuração: UI nativo - " + nativeUI);
         JFrame frame = new JFrame("SysDoc - Virtualização de Documento");
 // -- Configuration settings      
         Configuration.setLogLevel(Level.ALL);

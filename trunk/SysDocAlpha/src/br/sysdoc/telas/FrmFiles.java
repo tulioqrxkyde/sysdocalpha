@@ -6,6 +6,7 @@
 package br.sysdoc.telas;
 
 import br.sysdoc.factories.PathFactory;
+import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
@@ -16,16 +17,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 
 /**
  *
@@ -110,7 +111,8 @@ public class FrmFiles extends javax.swing.JFrame implements MouseListener {
                                 .getResource("/br/sysdoc/icones/imagem_icon.png")));
                         String txt = pathReceived.getFileName().toString();
                         if (txt.length() >= 12) {
-                            label.setText(txt.substring(0, 11) + "...");
+                            label.setText(txt + "<html> <br/>...</html>");
+                            label.setHorizontalTextPosition(JLabel.CENTER);
                         } else {
                             label.setText(pathReceived.getFileName().toString());
                         }
@@ -126,12 +128,18 @@ public class FrmFiles extends javax.swing.JFrame implements MouseListener {
                             .getResource("/br/sysdoc/icones/imagem_folder_icon.png")));
                     String name = pathReceived.getFileName().toString();
                     if (name.length() >= 12) {
-                        label.setText(name.substring(0, 11) + "...");
+                        String[] split = name.split("\\s");
+                        if (split.length > 1) {
+                            for (int x = 1; x < split.length; x++) {
+                                label.setText("<html> <center>" + split[0] + "<br> " + split[x] + " </center></html>");
+                            }
+                        }
                     } else {
-                        label.setText(pathReceived.getFileName().toString());
+                        label.setText(name);
+                        label.setBounds(x, y - 8, 100, 100);
                     }
                     label.setHorizontalTextPosition(SwingConstants.CENTER);
-                    label.setVerticalTextPosition(SwingConstants.BOTTOM);
+                    label.setVerticalTextPosition(JLabel.BOTTOM);
                     labelsNames.add(name);
                     labels.add(label);
                     file.add(pathReceived.toFile());
@@ -161,6 +169,7 @@ public class FrmFiles extends javax.swing.JFrame implements MouseListener {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sysdoc - Navegador de Arquivos");
@@ -190,6 +199,7 @@ public class FrmFiles extends javax.swing.JFrame implements MouseListener {
         jScrollPane1.setViewportView(jPanel1);
 
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         jButton2.setText("Visualizar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -214,7 +224,19 @@ public class FrmFiles extends javax.swing.JFrame implements MouseListener {
         });
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         jButton1.setText("Imprimir");
+        jButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+
+        jButton5.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/sysdoc/icones/cancelar.png"))); // NOI18N
+        jButton5.setText("Sair");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -223,38 +245,43 @@ public class FrmFiles extends javax.swing.JFrame implements MouseListener {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 276, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton5)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2});
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2, jButton5});
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton3, jButton4});
 
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton4)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton1)
-                        .addComponent(jButton3))
-                    .addComponent(jButton4))
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton3))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, jButton2, jButton3});
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, jButton2, jButton3, jButton4, jButton5});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -313,6 +340,10 @@ public class FrmFiles extends javax.swing.JFrame implements MouseListener {
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        dispose();       // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -353,6 +384,7 @@ public class FrmFiles extends javax.swing.JFrame implements MouseListener {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -365,6 +397,9 @@ public class FrmFiles extends javax.swing.JFrame implements MouseListener {
     @Override
     public void mousePressed(MouseEvent me) {
         clicked = (JLabel) me.getSource();
+        clicked.setForeground(Color.BLUE);
+        clicked.setBackground(Color.YELLOW);
+
         if (me.getClickCount() > 1) {
             try {
                 open();
